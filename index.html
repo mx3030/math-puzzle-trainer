@@ -14,21 +14,21 @@
         <div class="container h-100">  
             <div class="row row-cols-3 h-25">
                 <div class="col mt-5">
-                    <button type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px" onclick="openWaitingRoom(5)">Klasse 5</button>
+                    <button id="class5-button" type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px">Klasse 5</button>
                 </div>
                 <div class="col mt-5"> 
-                    <button type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px" onclick="openWaitingRoom(6)">Klasse 6</button>
+                    <button id="class6-button" type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px">Klasse 6</button>
                 </div>
                 <div class="col mt-5">         
-                    <button type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px" onclick="openWaitingRoom(7)">Klasse 7</button>
+                    <button id="class7-button" type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px">Klasse 7</button>
                 </div>
                 <div class="col mt-5">         
-                    <button type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px" onclick="openWaitingRoom(8)">Klasse 8</button>
+                    <button id="class8-button" type="button" class="btn btn-outline-dark h-100 w-100 rounded-0 my-2" style="font-size:40px">Klasse 8</button>
                 </div>
             </div>
         </div>
         <div id="puzzleGenerator-container" class="position-absolute bottom-0 end-0">
-            <button type="button" class="btn border border-dark rounded-0 pt-3" onclick="openPuzzleGenerator()">
+            <button id="puzzleGenerator-button" type="button" class="btn border border-dark rounded-0 pt-3">
                 <span class="material-symbols-outlined" style="font-size:60px">
                     construction
                 </span>
@@ -36,6 +36,18 @@
         </div>
         <script type="module" charset="utf-8">
             import {waitingRoomURL, puzzleGeneratorURL} from './main/helper.js'
+            $('#class5-button').on('click',function(){
+                openWaitingRoom(5)
+            })
+            $('#class5-button').on('click',function(){
+                openWaitingRoom(6)
+            })
+            $('#class5-button').on('click',function(){
+                openWaitingRoom(7)
+            })
+            $('#class5-button').on('click',function(){
+                openWaitingRoom(8)
+            })
             function openWaitingRoom(whichClass){
                 var schoolClass="class"+whichClass
                 <!--var url = "main/waitingRoom/waitingRoom.html"-->
@@ -44,6 +56,7 @@
                 window.location.href=url
             }
 
+            $('#puzzleGenerator-button').on('click',openPuzzleGenerator)
             function openPuzzleGenerator(){
                 <!--var url = "/puzzleGenerator/puzzleGenerator.html"-->
                 var url = puzzleGeneratorURL
