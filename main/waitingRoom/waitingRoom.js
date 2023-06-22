@@ -25,7 +25,9 @@ async function createRoom(){
         var [puzzleSet,pathToTemp] = await getPuzzleSet(userInput)
         await addRoomToDatabase(userInput,puzzleSet,pathToTemp)
         localStorage.setItem('mode',userInput.mode)
+        /*local dev url*/
         //var url = '../game/game.html'
+        /*github url*/
         var url = gameURL
         window.location.href=url
     }  

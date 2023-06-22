@@ -11,7 +11,6 @@ async function joinRoom(){
         $('#createJoinButtonText').addClass('d-none')
         $('#createJoinButtonSpinner').removeClass('d-none')
         await addPlayerToDatabase(playerName,roomNumber)
-        console.log("Hallo")
         var [puzzleSetLinks,pathToTemp] = await downloadPuzzleSetLinks(roomNumber)
         /*TODO: create complete puzzleSet from links or download while playing?*/
         //var puzzleSet = await createPuzzleSet(puzzleSetLinks)
