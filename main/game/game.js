@@ -1,8 +1,8 @@
 import { ref, set, get, update, onValue, onDisconnect, child, increment, remove} from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
-import { db } from "./main/db.js"
-import { roomNumber, playerName, pathToTemp, puzzleSet } from './main/game/start.js'
-import {displayLayoutMain} from './puzzleGenerator/calc/calcDisplay.js'
-import {displayLayoutGeogebra} from './puzzleGenerator/ggbJS/ggbDisplay.js'
+import { db } from "../../main/db.js"
+import { roomNumber, playerName, pathToTemp, puzzleSet } from '../../main/game/start.js'
+import {displayLayoutMain} from '../../puzzleGenerator/calc/calcDisplay.js'
+import {displayLayoutGeogebra} from '../../puzzleGenerator/ggbJS/ggbDisplay.js'
 
 export async function startGame(puzzleNumber){
     //console.log(puzzleSet)
