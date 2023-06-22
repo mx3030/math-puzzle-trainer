@@ -1,7 +1,7 @@
-import {breakpoint} from './main/style.js'
-import {appletSize} from './main/parameters.js'
-import {getFontSize} from './puzzleGenerator/calc/calcDisplay.js'
-import {loadPuzzle,updateInfos} from './main/game/game.js'
+import {breakpoint} from '../../main/style.js'
+import {appletSize} from '../../main/parameters.js'
+import {getFontSize} from '../../puzzleGenerator/calc/calcDisplay.js'
+import {loadPuzzle,updateInfos} from '../../main/game/game.js'
 
 /*zoom coordinate system to object*/
 export async function setCoordSystem(points){

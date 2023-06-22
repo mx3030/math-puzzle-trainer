@@ -1,4 +1,4 @@
-import {appID,appletSize} from './main/parameters.js'
+import {appID,appletSize} from '../../main/parameters.js'
 
 export function toDeg(angle){
     return angle*(180/Math.PI)

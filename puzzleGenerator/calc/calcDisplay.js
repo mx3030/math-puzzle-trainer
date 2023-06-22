@@ -1,6 +1,6 @@
-import {breakpoint} from "./main/style.js"
-import {myLatexHandler,myStringHandler} from ".main/puzzleGenerator/calc/calcGenerator.js"
-import {loadPuzzle,updateInfos} from './main/game/game.js'
+import {breakpoint} from "../../main/style.js"
+import {myLatexHandler,myStringHandler} from "../../puzzleGenerator/calc/calcGenerator.js"
+import {loadPuzzle,updateInfos} from '../../main/game/game.js'
 
 /*----------------------------------------------------------------------------------------------------*/
 /*--------------------------------------pre Settings--------------------------------------------------*/

@@ -1,6 +1,6 @@
-import {appID} from './main/parameters.js'
-import {ggbObject,Point,Segment,Angle} from './puzzleGenerator/ggbJS/ggbGenerator/basis.js'
-import {toDeg,toRad,samePoints} from './puzzleGenerator/ggbJS/ggbGenerator/functions.js'
+import {appID} from '../../main/parameters.js'
+import {ggbObject,Point,Segment,Angle} from '../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
+import {toDeg,toRad,samePoints} from '../../puzzleGenerator/ggbJS/ggbGenerator/functions.js'
 
 export class Triangle extends ggbObject {
     constructor(seg1,seg2,angle=null,name=null,id=appID){

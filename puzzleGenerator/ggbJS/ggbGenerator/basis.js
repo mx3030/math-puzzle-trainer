@@ -1,5 +1,5 @@
-import {appID} from './main/parameters.js'
-import {toDeg,toRad,samePoints} from './puzzleGenerator/ggbJS/ggbGenerator/functions.js'
+import {appID} from '../../main/parameters.js'
+import {toDeg,toRad,samePoints} from '../../puzzleGenerator/ggbJS/ggbGenerator/functions.js'
 
 export class ggbObject{
     constructor(name=null,aux=false,id=appID){
