@@ -1,8 +1,8 @@
-import {setCoordSystem} from './ggbDisplay.js'
-import {ggbObject,Point,Segment,Angle,importantPoints,resetImportantPoints} from './ggbGenerator/basis.js'
-import {Triangle,Pgramm,Polygon,Rectangle} from './ggbGenerator/shapes.js'
-import {getDistance,setColor} from './ggbGenerator/functions.js'
-import {ggbSetBase64,template} from '/main/parameters.js'
+import {setCoordSystem} from './puzzleGenerator/ggbJS/ggbDisplay.js'
+import {ggbObject,Point,Segment,Angle,importantPoints,resetImportantPoints} from './puzzleGenerator/ggbJS/ggbGenerator/basis.js'
+import {Triangle,Pgramm,Polygon,Rectangle} from './puzzleGenerator/ggbJS/ggbGenerator/shapes.js'
+import {getDistance,setColor} from './puzzleGenerator/ggbJS/ggbGenerator/functions.js'
+import {ggbSetBase64,template} from './main/parameters.js'
 
 export async function class6_geometry_triangle_height_easy(){
     /*initalize puzzle*/

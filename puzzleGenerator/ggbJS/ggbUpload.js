@@ -1,7 +1,7 @@
-import {db, firebaseConfig} from '/main/db.js'
+import {db, firebaseConfig} from './main/db.js'
 import {ref, get, update, remove, push, child } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
-import * as ggbjsTopicFunctions from './ggbPuzzles.js'
-import {areEqual} from '/main/helper.js'
+import * as ggbjsTopicFunctions from './puzzleGenerator/ggbJS/ggbPuzzles.js'
+import {areEqual} from './main/helper.js'
 
 export const maxRandom = 10000
 

@@ -1,8 +1,8 @@
-import {db} from '/main/db.js'
+import {db} from './main/db.js'
 import {ref, get, update, remove, push, child } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
-import {deepCopy} from '/main/helper.js'
-import {uploadSingleGGBJSPuzzle} from '../ggbJS/ggbUpload.js'
-import * as calcTopicArrays from './calcPuzzles.js'
+import {deepCopy} from './main/helper.js'
+import {uploadSingleGGBJSPuzzle} from '.puzzleGenerator/ggbJS/ggbUpload.js'
+import * as calcTopicArrays from './puzzleGenerator/calc/calcPuzzles.js'
 
 export async function uploadAllCalcTopics(resetDatabase=false){
     if(resetDatabase==true){

@@ -1,13 +1,13 @@
-import {appID,template,toolbar,injectGeoGebraApplet} from '/main/parameters.js'
-import {deepCopy} from '/main/helper.js'
-import {breakpoint,disableScrollOnIOS} from '/main/style.js'
-import * as ggbjsTopicFunctions from './ggbJS/ggbPuzzles.js'
-import * as calcTopicArrays from './calc/calcPuzzles.js'
-import {genCalcMain,genCalc, genEqEasy, genEq} from './calc/calcGenerator.js'
-import {displayLayoutMain,displayCalc, displayEqEasy, displayEq} from './calc/calcDisplay.js'
-import {displayLayoutGeogebra} from './ggbJS/ggbDisplay.js'
-import {uploadSingleGGBJSPuzzle,uploadGGBJSTopic,uploadAllGGBJSTopics} from './ggbJS/ggbUpload.js'
-import {extractPuzzleData, uploadCalcTopic,uploadAllCalcTopics} from './calc/calcUpload.js'
+import {appID,template,toolbar,injectGeoGebraApplet} from './main/parameters.js'
+import {deepCopy} from './main/helper.js'
+import {breakpoint,disableScrollOnIOS} from './main/style.js'
+import * as ggbjsTopicFunctions from './puzzleGenerator/ggbJS/ggbPuzzles.js'
+import * as calcTopicArrays from './puzzleGenerator/calc/calcPuzzles.js'
+import {genCalcMain,genCalc, genEqEasy, genEq} from './puzzleGenerator/calc/calcGenerator.js'
+import {displayLayoutMain,displayCalc, displayEqEasy, displayEq} from './puzzleGenerator/calc/calcDisplay.js'
+import {displayLayoutGeogebra} from './puzzleGenerator/ggbJS/ggbDisplay.js'
+import {uploadSingleGGBJSPuzzle,uploadGGBJSTopic,uploadAllGGBJSTopics} from './puzzleGenerator/ggbJS/ggbUpload.js'
+import {extractPuzzleData, uploadCalcTopic,uploadAllCalcTopics} from './puzzleGenerator/calc/calcUpload.js'
 
 var ggbjsTopics = Object.keys(ggbjsTopicFunctions).filter(key => typeof ggbjsTopicFunctions[key] === 'function');
 var calcTopics = Object.keys(calcTopicArrays).filter(key => typeof calcTopicArrays[key] === 'object');
