@@ -1,5 +1,6 @@
 window.onload = async function(){
     var schoolClass = localStorage.getItem('schoolClass')
+    console.log(schoolClass)
     await setClassLayout(schoolClass)
     setModeButtonsBehaviour() 
     setTimeButtonsBehaviour() 
