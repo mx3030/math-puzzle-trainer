@@ -1,0 +1,8 @@
+- write stopGame function
+- delete temp node
+- reload button or restart game management
+- geogebra ruler by working with layers
+- geogebra ruler rotation solution
+- vector.js number arrow
+- puzzle generator database helper functions (clear complete temps with databaseControl.js)
+- write the connection to different nodes in database with a db class (so var root=ref(db),... not needed)
