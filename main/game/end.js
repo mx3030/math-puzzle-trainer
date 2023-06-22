@@ -1,9 +1,9 @@
 import { ref, set, get, update, onValue, onDisconnect, child, increment, runTransaction,off} from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
-import { db } from "/main/db.js"
-import {roomNumber,pathToTemp,playerName,mode,startMode,userInput} from "./start.js"
-import {getPuzzleSet,addRoomToDatabase} from "/main/waitingRoom/waitingRoom.js"
-import {updateWaitingStatus} from "./wait.js"
-import {downloadPuzzleSetLinks,addPlayerToDatabase} from "/main/waitingRoom/waitingRoomJoin.js"
+import { db } from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/db.js"
+import {roomNumber,pathToTemp,playerName,mode,startMode,userInput} from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/game/start.js"
+import {getPuzzleSet,addRoomToDatabase} from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/waitingRoom/waitingRoom.js"
+import {updateWaitingStatus} from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/game/wait.js"
+import {downloadPuzzleSetLinks,addPlayerToDatabase} from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/waitingRoom/waitingRoomJoin.js"
 
 $('#replay-button').on('click',async function(){
     await replayRoom()

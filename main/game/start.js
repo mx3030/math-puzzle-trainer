@@ -1,9 +1,9 @@
 import { ref, set, get, update, onValue, onDisconnect, child} from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
-import { db } from "/main/db.js"
-import {updateWaitingStatus, startTimer, updateWaitingStatusForSinglePlayer} from "./wait.js"
-import {startGame} from "./game.js"
-import {displayProgressBars} from "./gameStyle.js"
-import {deleteTemps} from '/main/waitingRoom/waitingRoom.js'
+import { db } from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/db.js"
+import {updateWaitingStatus, startTimer, updateWaitingStatusForSinglePlayer} from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/game/wait.js"
+import {startGame} from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/game/game.js"
+import {displayProgressBars} from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/game/gameStyle.js"
+import {deleteTemps} from 'https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/waitingRoom/waitingRoom.js'
 
 /*values player need to know on start*/
 export var roomNumber
