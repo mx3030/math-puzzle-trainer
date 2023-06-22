@@ -55,7 +55,7 @@ async function createNewGame(){
     await addRoomToDatabase(userInput,puzzleSet,pathToTemp)
     //await startMode(mode,roomNumber,playerName)
     //updateWaitingStatus(playerName,roomNumber)
-    var url = '../../main/game/game.html'
+    var url = '../game/game.html'
     window.location.href=url
 
 }
@@ -70,7 +70,7 @@ async function joinNewGame(){
     //localStorage.setItem('mode',mode)
     //await startMode(mode,roomNumber,playerName)
     //updateWaitingStatus(playerName,roomNumber)
-    var url = '../../main/game/game.html'
+    var url = '../game/game.html'
     window.location.href=url
 
 }
