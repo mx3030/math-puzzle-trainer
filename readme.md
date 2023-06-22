@@ -28,7 +28,7 @@ There are four main nodes in the database.
 
 2. tags
     For normalization each node contains some tags. If user selctes his topics, those nodes get searched, and every node, that contains all tags the user wants gets selected.
-    These keys match the keys in puzzles node, that contains the puzzles and calculation templated (or specific calculation puzzles)
+    These keys match the keys in puzzles node, that contains the puzzles and calculation template (or specific calculation puzzles)
     For example a tag key could have the values -> [geometry,triangle,height,measure,easy,medium]
     If the user marks checkboxes, that include those tags, this key is selected in code.
 
