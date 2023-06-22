@@ -1,5 +1,6 @@
 import { ref, set, get, update, child } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
 import { db } from "../../main/db.js"
+import { gameURL } from "../../main/helper.js"
 
 $('#joinRoomButton').on('click',joinRoom)
 async function joinRoom(){
@@ -21,7 +22,8 @@ async function joinRoom(){
         var userInputString = JSON.stringify(userInput)
         localStorage.setItem('userInput',userInputString)
         /*open game mode html*/
-        var url = '/main/game/game.html'
+        //var url = '/main/game/game.html'
+        var url = gameURL
         window.location.href=url
     }
 }
