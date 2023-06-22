@@ -1,7 +1,7 @@
 import { ref, set, get, update,child, query, orderByChild, startAt, limitToLast, limitToFirst, orderByValue, orderByKey, push, remove } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
-import { db, firebaseConfig } from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/db.js"
-import { hasTrailingSpaces, containsSpecialCharacters, isNumeric, containsElements } from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/helper.js"
-import { genCalcMain } from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/puzzleGenerator/calc/calcGenerator.js"
+import { db, firebaseConfig } from "./main/db.js"
+import { hasTrailingSpaces, containsSpecialCharacters, isNumeric, containsElements } from "./main/helper.js"
+import { genCalcMain } from "./puzzleGenerator/calc/calcGenerator.js"
 
 /*get school class from start page*/
 export var schoolClass = localStorage.getItem('schoolClass')

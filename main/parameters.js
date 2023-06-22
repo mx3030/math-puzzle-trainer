@@ -5,7 +5,7 @@
 //<div id="applet_container"></div>
 //</div>
 
-import {breakpoint} from './style.js'
+import {breakpoint} from './main/style.js'
 
 export var appID  = "app"
 

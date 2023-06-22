@@ -1,6 +1,6 @@
 import { ref, set, get, update, onValue, onDisconnect, child, runTransaction, serverTimestamp, onChildAdded, onChildChanged, off, remove} from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
-import { db } from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/db.js"
-import { startGame,stopGame } from "https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/game/game.js"
+import { db } from "./main/db.js"
+import { startGame,stopGame } from "./main/game/game.js"
 
 export async function updateWaitingStatus(playerName,roomNumber){
     var timerElement = $('#left-countdown-timer') 

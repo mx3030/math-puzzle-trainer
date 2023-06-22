@@ -1,4 +1,4 @@
-import {mode} from 'https://raw.githubusercontent.com/mx3030/math-puzzle-trainer/master/main/game/start.js'
+import {mode} from './main/game/start.js'
 
 var controlElementsDuell = ['control-bar-time','control-bar-points','control-bar-aufgabe','control-bar-history','control-bar-bestenliste','control-bar-ranking']
 var controlElementsRush = ['control-bar-points','control-bar-aufgabe','control-bar-newGame']
