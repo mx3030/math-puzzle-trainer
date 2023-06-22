@@ -6,10 +6,12 @@ $('#joinRoomButton').on('click',joinRoom)
 async function joinRoom(){
     var playerName=$('#name-input').val()
     var roomNumber=$('#room-input').val()
+    console.log(playerName,roomNumber)
     if(await checkJoinInput(playerName,roomNumber)){
         $('#createJoinButtonText').addClass('d-none')
         $('#createJoinButtonSpinner').removeClass('d-none')
-        var mode = await addPlayerToDatabase(playerName,roomNumber)
+        await addPlayerToDatabase(playerName,roomNumber)
+        console.log("Hallo")
         var [puzzleSetLinks,pathToTemp] = await downloadPuzzleSetLinks(roomNumber)
         /*TODO: create complete puzzleSet from links or download while playing?*/
         //var puzzleSet = await createPuzzleSet(puzzleSetLinks)
