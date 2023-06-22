@@ -14,7 +14,7 @@ But i am no expert.
 All puzzles get a few tags, which help searching them up, depending, what the user chooses to train. For the moment i think it should work for class7 and duell mode with difficulty
 easy,medium and hard. I need to correct some coding mistakes here.
 
-There are three main nodes in the database.
+There are four main nodes in the database.
 1. games
     - connectedPlayers (to see if room is free and some other stuff)
     - waitingPlayers (for countdown in multiplayer)
