@@ -29,22 +29,25 @@
         </div>
         <div id="puzzleGenerator-container" class="position-absolute bottom-0 end-0">
             <button type="button" class="btn border border-dark rounded-0 pt-3" onclick="openPuzzleGenerator()">
-            <span class="material-symbols-outlined" style="font-size:60px">
-                construction
-            </span>
-        </button>
+                <span class="material-symbols-outlined" style="font-size:60px">
+                    construction
+                </span>
+            </button>
         </div>
+        <script charset="utf-8" src="./main/helper.js"></script>
         <script charset="utf-8">
             function openWaitingRoom(whichClass){
                 var schoolClass="class"+whichClass
-                var url = "main/waitingRoom/waitingRoom.html"
+                <!--var url = "main/waitingRoom/waitingRoom.html"-->
+                var url = waitingRoomURL
                 localStorage.setItem('schoolClass',schoolClass)
                 window.location.href=url
             }
 
             function openPuzzleGenerator(){
-                    var url = "/puzzleGenerator/puzzleGenerator.html"
-                    window.location.href=url
+                <!--var url = "/puzzleGenerator/puzzleGenerator.html"-->
+                var url = puzzleGeneratorURL
+                window.location.href=url
             }
         </script>
     </body>

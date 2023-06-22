@@ -4,6 +4,7 @@ import {roomNumber,pathToTemp,playerName,mode,startMode,userInput} from "../../m
 import {getPuzzleSet,addRoomToDatabase} from "../../main/waitingRoom/waitingRoom.js"
 import {updateWaitingStatus} from "../../main/game/wait.js"
 import {downloadPuzzleSetLinks,addPlayerToDatabase} from "../../main/waitingRoom/waitingRoomJoin.js"
+import { gameURL } from "../../main/helper.js"
 
 $('#replay-button').on('click',async function(){
     await replayRoom()
@@ -55,7 +56,8 @@ async function createNewGame(){
     await addRoomToDatabase(userInput,puzzleSet,pathToTemp)
     //await startMode(mode,roomNumber,playerName)
     //updateWaitingStatus(playerName,roomNumber)
-    var url = '../game/game.html'
+    //var url = '../game/game.html'
+    var url = gameURL
     window.location.href=url
 
 }
@@ -70,7 +72,8 @@ async function joinNewGame(){
     //localStorage.setItem('mode',mode)
     //await startMode(mode,roomNumber,playerName)
     //updateWaitingStatus(playerName,roomNumber)
-    var url = '../game/game.html'
+    //var url = '../game/game.html'
+    var url = gameURL
     window.location.href=url
 
 }
