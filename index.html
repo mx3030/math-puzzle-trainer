@@ -50,7 +50,7 @@
             })
             function openWaitingRoom(whichClass){
                 var schoolClass="class"+whichClass
-                <!--var url = "main/waitingRoom/waitingRoom.html"-->
+                //var url = "main/waitingRoom/waitingRoom.html"
                 var url = waitingRoomURL
                 localStorage.setItem('schoolClass',schoolClass)
                 window.location.href=url
@@ -58,7 +58,7 @@
 
             $('#puzzleGenerator-button').on('click',openPuzzleGenerator)
             function openPuzzleGenerator(){
-                <!--var url = "/puzzleGenerator/puzzleGenerator.html"-->
+                //var url = "/puzzleGenerator/puzzleGenerator.html"
                 var url = puzzleGeneratorURL
                 window.location.href=url
             }
