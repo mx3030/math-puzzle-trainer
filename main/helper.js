@@ -37,3 +37,8 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+/*github urls*/
+export var gameURL = 'https://mx3030.github.io/math-puzzle-trainer/main/game/game.html'
+export var puzzleGeneratorURL = 'https://mx3030.github.io/math-puzzle-trainer/puzzleGenerator/puzzleGenerator.html'
+export var waitingRoomURL = 'https://mx3030.github.io/math-puzzle-trainer/main/waitingRoom/waitingRoom.html'

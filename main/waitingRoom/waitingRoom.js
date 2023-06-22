@@ -1,6 +1,6 @@
 import { ref, set, get, update,child, query, orderByChild, startAt, limitToLast, limitToFirst, orderByValue, orderByKey, push, remove } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
 import { db, firebaseConfig } from "../../main/db.js"
-import { hasTrailingSpaces, containsSpecialCharacters, isNumeric, containsElements } from "../../main/helper.js"
+import { hasTrailingSpaces, containsSpecialCharacters, isNumeric, containsElements, gameURL } from "../../main/helper.js"
 import { genCalcMain } from "../../puzzleGenerator/calc/calcGenerator.js"
 
 /*get school class from start page*/
@@ -25,7 +25,8 @@ async function createRoom(){
         var [puzzleSet,pathToTemp] = await getPuzzleSet(userInput)
         await addRoomToDatabase(userInput,puzzleSet,pathToTemp)
         localStorage.setItem('mode',userInput.mode)
-        var url = '../game/game.html'
+        //var url = '../game/game.html'
+        var url = gameURL
         window.location.href=url
     }  
 }
