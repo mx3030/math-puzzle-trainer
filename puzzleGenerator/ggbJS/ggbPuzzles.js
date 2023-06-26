@@ -46,4 +46,9 @@ export async function class6_geometry_triangle_height_easy(){
     return puzzleData
 }
 
+export async function class7_geometry_angle_easy(){
+    resetImportantPoints()
+    await ggbSetBase64(template.clean64);
+
+}
 

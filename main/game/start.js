@@ -209,7 +209,7 @@ async function startDuellMode(roomNumber,playerName){
     /*register a connectedPlayersRef listener for progress bars*/
     onValue(connectedPlayersRef,async (snap)=>{
         var connected = snap.val()
-        await displayProgressBars(connected)
+        displayProgressBars(connected)
     })
 
     /*set specific layout of right side*/

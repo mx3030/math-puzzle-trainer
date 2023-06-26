@@ -9,6 +9,7 @@ import {displayLayoutGeogebra} from './ggbJS/ggbDisplay.js'
 import {uploadSingleGGBJSPuzzle,uploadGGBJSTopic,uploadAllGGBJSTopics} from './ggbJS/ggbUpload.js'
 import {extractPuzzleData, uploadCalcTopic,uploadAllCalcTopics} from './calc/calcUpload.js'
 
+
 var ggbjsTopics = Object.keys(ggbjsTopicFunctions).filter(key => typeof ggbjsTopicFunctions[key] === 'function');
 var calcTopics = Object.keys(calcTopicArrays).filter(key => typeof calcTopicArrays[key] === 'object');
 

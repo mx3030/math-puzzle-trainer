@@ -20,7 +20,8 @@ export var appletSize = {
 export var template = {
     geo:'../puzzleGenerator/ggbJS/ggbGenerator/templates/geo.ggb',
     geo64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/geo.base64',
-    //clean:'../puzzleGenerator/ggbJS/ggbGenerator/templates/clean.ggb'
+    clean:'../puzzleGenerator/ggbJS/ggbGenerator/templates/clean.ggb',
+    clean64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/clean.base64', 
 }
 
 export var toolbar = {
