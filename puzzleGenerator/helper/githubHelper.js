@@ -1,8 +1,4 @@
-const owner = 'mx3030';
-const repo = 'math-puzzle-trainer';
-const path = 'puzzles';
-
-async function getAllRepositoryFiles(owner, repo, path = '') {
+export async function getPuzzleFiles(owner, repo, path = '') {
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
   const response = await fetch(apiUrl);
   const data = await response.json();
@@ -14,7 +10,7 @@ async function getAllRepositoryFiles(owner, repo, path = '') {
       if (item.type === 'file') {
         files.push(item.path);
       } else if (item.type === 'dir') {
-        const subFiles = await getAllRepositoryFiles(owner, repo, item.path);
+        const subFiles = await getPuzzleFiles(owner, repo, item.path);
         files.push(...subFiles);
       }
     }
@@ -25,12 +21,4 @@ async function getAllRepositoryFiles(owner, repo, path = '') {
   }
 }
 
-
-getAllRepositoryFiles(owner, repo, path)
-  .then(files => {
-    console.log('All Files:', files);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
 

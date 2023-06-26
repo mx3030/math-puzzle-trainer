@@ -1,5 +1,5 @@
-import {appID,template,toolbar,injectGeoGebraApplet} from '/main/parameters.js'
-import {deepCopy} from '/main/helper.js'
+import {appID,template,toolbar,injectGeoGebraApplet} from '../main/parameters.js'
+import {deepCopy} from '../main/helper.js'
 import {breakpoint,disableScrollOnIOS} from '/main/style.js'
 import * as ggbjsTopicFunctions from './ggbJS/ggbPuzzles.js'
 import * as calcTopicArrays from './calc/calcPuzzles.js'
@@ -8,10 +8,36 @@ import {displayLayoutMain,displayCalc, displayEqEasy, displayEq} from './calc/ca
 import {displayLayoutGeogebra} from './ggbJS/ggbDisplay.js'
 import {uploadSingleGGBJSPuzzle,uploadGGBJSTopic,uploadAllGGBJSTopics} from './ggbJS/ggbUpload.js'
 import {extractPuzzleData, uploadCalcTopic,uploadAllCalcTopics} from './calc/calcUpload.js'
+import {getPuzzleFiles} from './helper/githubHelper.js'
 
+const owner = 'mx3030';
+const repo = 'math-puzzle-trainer';
+const path = 'puzzles';
 
-var ggbjsTopics = Object.keys(ggbjsTopicFunctions).filter(key => typeof ggbjsTopicFunctions[key] === 'function');
-var calcTopics = Object.keys(calcTopicArrays).filter(key => typeof calcTopicArrays[key] === 'object');
+var puzzleFiles = await getPuzzleFiles(owner,repo,path)
+var puzzleFiles = puzzleFiles.map(path => `../${path}`);
+console.log(puzzleFiles)
+
+var puzzleImports = []
+var ggbjsTopics = {}
+var calcTopics = {}
+Promise.all(puzzleFiles.map(puzzleFile => import(puzzleFile)))
+.then(modules => {
+    for(var i=0;i<puzzleFiles.length;i++){
+        puzzleImports.push(modules[i])
+    } 
+    for(var i=0;i<puzzleFiles.length;i++){
+        var functionPuzzles = Object.keys(puzzleImports[i]).filter(key => typeof puzzleImports[i][key] === 'function')
+        if(functionPuzzles.length!=0) ggbjsTopics[puzzleFiles[i]]=functionPuzzles
+        var arrayPuzzles  = Object.keys(puzzleImports[i]).filter(key => typeof puzzleImports[i][key] === 'object');
+        if(arrayPuzzles.length!=0) calcTopics[puzzleFiles[i]]= arrayPuzzles
+    }
+})
+
+console.log(ggbjsTopics)
+console.log(calcTopics)
+//var ggbjsTopics = Object.keys(ggbjsTopicFunctions).filter(key => typeof ggbjsTopicFunctions[key] === 'function');
+//var calcTopics = Object.keys(calcTopicArrays).filter(key => typeof calcTopicArrays[key] === 'object');
 
 
 window.addEventListener('load',function(){
