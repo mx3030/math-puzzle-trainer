@@ -14,7 +14,6 @@ window.addEventListener('load',async function(){
     ggbFiles = await getGithubFiles(owner,repo,path)
     /*correct path*/
     ggbFiles = ggbFiles.map(path => `../../../../${path}`);
-    console.log(ggbFiles)
     await createGGBFilesDropdownMenu()
 })
 
@@ -23,7 +22,6 @@ async function createGGBFilesDropdownMenu(){
     for(var i=0;i<ggbFiles.length;i++){
         var ggbStringSplit = ggbFiles[i].split('/')
         var ggbString = ggbStringSplit.pop()
-        console.log(ggbFiles[i])
         var dropdownElement = $('<option></option>',{
             'value':ggbFiles[i],
             'id':'ggbFile'+i,
@@ -36,8 +34,35 @@ async function createGGBFilesDropdownMenu(){
 
 $('#load-template-button').on('click',function(){
     var selectedGGBFile = $('#load-template-selection').val()
-    console.log(selectedGGBFile)
     injectGeoGebraApplet(breakpoint,toolbar.simple,selectedGGBFile)
 })
+
+$('#gen-base64-button').on('click',function(){
+    var filename = $('#load-template-selection').find('option:selected').text()
+    var filenameArray = filename.split('.')
+    var filenameNoExtension = filenameArray[0]
+    var base64string = app.getBase64() 
+    saveAs(createBlob(base64string),filenameNoExtension+'.base64')
+})
+
+//https://muhimasri.com/blogs/how-to-save-files-in-javascript/
+function saveAs(content,fileName){
+    const a = document.createElement("a");
+    const isBlob = content.toString().indexOf("Blob") > -1;
+    let url = content;
+    if (isBlob) {
+        url = window.URL.createObjectURL(content);
+    }
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    if (isBlob) {
+        window.URL.revokeObjectURL(url);
+    }
+}
+
+function createBlob(data) {
+  return new Blob([data], { type: "text/plain" });
+}
 
 
