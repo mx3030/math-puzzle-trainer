@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Puzzle Generator</title>
+        <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+        <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+        <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,200" />-->
+    </head>
+    <body>
+        <div id="game-room" class="container-fluid">
+            <div class="row mt-3 mx-0">
+                <div id="left" class="col-8 my-2 ms-2"> 
+                    <div id="ggb" class="d-flex justify-content-center border border-dark position-relative">
+                        <div id="applet_container" class="" style=""></div>                        
+                    </div>
+                </div>
+
+                <div id="right" class="col my-2 me-2 d-flex flex-column bg-light">
+                    <div id="load-template-container" class="input-group mb-3">
+                        <select id="load-template-selection" class="form-select border border-dark rounded-0 w-50"></select>
+                        <button id="load-template-button" class="btn btn-outline-dark rounded-0" type="button">
+                            <span>load</span>
+                        </button>
+                    </div>
+
+                    <button id="gen-base64-button" type="button" class="btn btn-outline-dark rounded-0">
+                <span >
+                    save base64
+                </span>
+            </button>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" charset="utf-8" src="../../../../main/parameters.js"></script>
+        <script type="module" charset="utf-8" src="../../../../main/style.js"></script> 
+        <script type="module" charset="utf-8" src="./templates.js"></script>
+    </body>
+</html>

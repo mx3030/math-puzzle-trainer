@@ -1,12 +1,13 @@
 import {appID,template,toolbar,injectGeoGebraApplet} from '../main/parameters.js'
-import {deepCopy} from '../main/helper.js'
+import {deepCopy,templatesURL} from '../main/helper.js'
 import {breakpoint,disableScrollOnIOS} from '/main/style.js'
-import {genCalcMain,genCalc, genEqEasy, genEq} from './calc/calcGenerator.js'
+import {genCalcMain} from './calc/calcGenerator.js'
 import {displayLayoutMain,displayCalc, displayEqEasy, displayEq} from './calc/calcDisplay.js'
 import {displayLayoutGeogebra} from './ggbJS/ggbDisplay.js'
-import {uploadSingleGGBJSPuzzle,uploadGGBJSTopic,uploadAllGGBJSTopics} from './ggbJS/ggbUpload.js'
-import {extractPuzzleData, uploadCalcTopic,uploadAllCalcTopics} from './calc/calcUpload.js'
+import {uploadSingleGGBJSPuzzle,uploadGGBJSFile,uploadGGBJSFunction,uploadGGBJSAll} from './ggbJS/ggbUpload.js'
+import {generatePuzzleData, uploadCalcFile,uploadCalcArray,uploadCalcQuestion,uploadCalcAll} from './calc/calcUpload.js'
 import {getPuzzleFiles} from './helper/githubHelper.js'
+import {deleteTemps,deletePuzzles,resetDatabase} from './helper/databaseHelper.js'
 
 export var puzzleImports = {}
 export var ggbjsPuzzles = {}
@@ -50,9 +51,12 @@ window.addEventListener('load',async function(){
 /*---------------------------------------ggbjs-------------------------------------------*/
 /*---------------------------------------------------------------------------------------*/
 
+$('#manage-templates-button').on('click',function(){
+    window.location.href=templatesURL
+})
+
 async function createGGBJSFilesDropdownMenu(puzzles){
     var fileContainer = $('#js-files')
-    var functionsContainer = $('#file-functions')
     for(var path in puzzles){
         var dropdownElement = $('<option></option>',{
             'value':path,
@@ -82,8 +86,10 @@ function createGGBJSFunctionsDropdownMenu(puzzles){
     }
 }
 
+/*puzzle data from generate button*/
 var lastGeneratedGGBJS={}
-$('#ggbjs-gen-button').click(async function(){
+
+$('#ggbjs-single-gen-button').click(async function(){
     $('#ggb-problem-area').empty()  
     $('#algebra-problem-area').empty()  
     $('#ggb').removeClass('d-none') 
@@ -96,30 +102,43 @@ $('#ggbjs-gen-button').click(async function(){
     displayLayoutGeogebra(uploadData)
 })
 
-$('#ggbjs-upload-generated-button').click(async function(){
-    $('#ggbjsUploadGeneratedSpinner').removeClass('d-none')
-    $('#ggbjs-upload-generated-text').addClass('d-none')
+$('#ggbjs-single-upload-button').click(async function(){
+    /*upload single ggbjs puzzle that is generated (-> lastGeneratedGGBJS needs to be set)*/
+    $('#ggbjs-single-spinner').removeClass('d-none')
+    $('#ggbjs-single-upload-text').addClass('d-none')
     await uploadSingleGGBJSPuzzle(lastGeneratedGGBJS)
-    $('#ggbjsUploadGeneratedSpinner').addClass('d-none')
-    $('#ggbjs-upload-generated-text').removeClass('d-none')
+    $('#ggbjs-single-spinner').addClass('d-none')
+    $('#ggbjs-single-upload-text').removeClass('d-none')
 })
 
-$('#ggbjs-upload-selected-button').click(async function(){
-    var topic = $('#ggbjs-topics').val()
-    var numberOfPuzzles = $('#ggbjs-number-of-puzzles').val()
-    $('#ggbjsUploadSelectedSpinner').removeClass('d-none')
-    $('#ggbjs-upload-selected-text').addClass('d-none')
-    await uploadGGBJSTopic(topic,numberOfPuzzles)
-    $('#ggbjsUploadSelectedSpinner').addClass('d-none')
-    $('#ggbjs-upload-selected-text').removeClass('d-none')
+$('#js-files-upload-button').click(async function(){
+    /*upload all puzzles in selected file*/
+    var numberOfPuzzles = $('#js-files-num').val()
+    var selectedFile = $('#js-files').val()
+    $('#js-files-spinner').removeClass('d-none')
+    $('#js-files-upload-text').addClass('d-none')
+    await uploadGGBJSFile(selectedFile,numberOfPuzzles)
+    $('#js-files-spinner').addClass('d-none')
+    $('#js-files-upload-text').removeClass('d-none')
+})
+
+$('#file-functions-upload-button').click(async function(){
+    var numberOfPuzzles = $('#file-functions-num').val()
+    var selectedFile = $('#js-files').val()
+    var selectedFunction = $('#file-functions').val()
+    $('#file-functions-spinner').removeClass('d-none')
+    $('#file-functions-upload-text').addClass('d-none')
+    await uploadGGBJSFunction(selectedFile,selectedFunction,numberOfPuzzles)
+    $('#file-functions-spinner').addClass('d-none')
+    $('#file-functions-upload-text').removeClass('d-none')
 })
 
 $('#ggbjs-upload-all-button').click(async function(){
-    var numberOfPuzzles = $('#ggbjs-number-of-puzzles').val()
-    $('#ggbjsUploadAllSpinner').removeClass('d-none')
+    var numberOfPuzzles = $('#ggbjs-upload-all-num').val()
+    $('#ggbjs-upload-all-spinner').removeClass('d-none')
     $('#ggbjs-upload-all-text').addClass('d-none')
-    await uploadAllGGBSTopics(numberOfPuzzles,true)
-    $('#ggbjsUploadAllSpinner').addClass('d-none')
+    await uploadGGBJSAll(numberOfPuzzles,true)
+    $('#ggbjs-upload-all-spinner').addClass('d-none')
     $('#ggbjs-upload-all-text').removeClass('d-none')
 })
 
@@ -182,10 +201,15 @@ function createCalcQuestionsDropdownMenu(puzzleImports){
 
 
 var lastGeneratedCalc={}
-$('#calc-gen-button').click(async function(){
+$('#calc-single-gen-button').click(async function(){
     $('#algebra-problem-area').empty()  
     $('#ggb-problem-area').empty()  
-    var puzzleData = generatePuzzleData()
+    
+    var selectedFile = $('#calc-files').val()
+    var selectedArray = $('#file-arrays').val()
+    var selectedQuestion = $('#array-questions').val()
+    var puzzleData = await generatePuzzleData(selectedFile,selectedArray,selectedQuestion)
+
     var uploadData=genCalcMain(puzzleData)
     lastGeneratedCalc=uploadData
     $('#ggb').addClass('d-none') 
@@ -193,40 +217,68 @@ $('#calc-gen-button').click(async function(){
     displayLayoutMain(uploadData) 
 })
 
-function generatePuzzleData(calcTopic,questionKey){
-    var selectedFile = $('#calc-files').val()
-    var matchingModule = puzzleImports[selectedFile]
-    var selectedArray = $('#file-arrays').val()
-    var questionKey = $('#array-questions').val()
-    var calcTopicCopy = deepCopy(matchingModule[selectedArray])
-    var questionData = calcTopicCopy.questions[questionKey]
-    delete calcTopicCopy.questions
-    var puzzleData = {...calcTopicCopy,...questionData}
-    return puzzleData
-}
 
-$('#calc-upload-generated-button').click(async function(){
-    $('#calcUploadGeneratedSpinner').removeClass('d-none')
-    $('#calc-upload-generated-text').addClass('d-none')
+$('#calc-single-upload-button').click(async function(){
+    $('#calc-single-spinner').removeClass('d-none')
+    $('#calc-single-upload-text').addClass('d-none')
     await uploadSingleGGBJSPuzzle(lastGeneratedCalc)
-    $('#calcUploadGeneratedSpinner').addClass('d-none')
-    $('#calc-upload-generated-text').removeClass('d-none')
+    $('#calc-single-spinner').addClass('d-none')
+    $('#calc-single-upload-text').removeClass('d-none')
 })
 
+$('#calc-files-upload-button').click(async function(){
+    var test = $('#calc-files-num').val()
+    if(test=='') console.log(true)
+    var selectedFile = $('#calc-files').val()
+    $('#calc-files-spinner').removeClass('d-none')
+    $('#calc-files-upload-text').addClass('d-none')
+    await uploadCalcFile(selectedFile)
+    $('#calc-files-spinner').addClass('d-none')
+    $('#calc-files-upload-text').removeClass('d-none')
+})
 
-$('#calc-upload-selected-button').click(async function(){
-    var topic = $('#calc-topics').val()
-    $('#calcUploadSelectedSpinner').removeClass('d-none')
-    $('#calc-upload-selected-text').addClass('d-none')
-    await uploadCalcTopic(topic)
-    $('#calcUploadSelectedSpinner').addClass('d-none')
-    $('#calc-upload-selected-text').removeClass('d-none')
+$('#file-arrays-upload-button').click(async function(){ 
+    var selectedFile = $('#calc-files').val()
+    var selectedArray = $('#file-arrays').val()
+    $('#file-arrays-spinner').removeClass('d-none')
+    $('#file-arrays-upload-text').addClass('d-none')
+    await uploadCalcArray(selectedFile,selectedArray)
+    $('#file-arrays-spinner').addClass('d-none')
+    $('#file-arrays-upload-text').removeClass('d-none')
+})
+
+$('#array-questions-upload-button').click(async function(){
+    var selectedFile = $('#calc-files').val()
+    var selectedArray = $('#file-arrays').val()
+    var selectedQuestion = $('#array-questions').val()
+    $('#array-questions-spinner').removeClass('d-none')
+    $('#array-questions-upload-text').addClass('d-none')
+    await uploadCalcQuestion(selectedFile,selectedArray,selectedQuestion)
+    $('#array-questions-spinner').addClass('d-none')
+    $('#array-questions-upload-text').removeClass('d-none')
 })
 
 $('#calc-upload-all-button').click(async function(){
-    $('#calcUploadAllSpinner').removeClass('d-none')
+    $('#calc-upload-all-spinner').removeClass('d-none')
     $('#calc-upload-all-text').addClass('d-none')
-    await uploadAllCalcTopics(true)
-    $('#calcUploadAllSpinner').addClass('d-none')
+    await uploadCalcAll()
+    $('#calc-upload-all-spinner').addClass('d-none')
     $('#calc-upload-all-text').removeClass('d-none')
+})
+
+
+/*---------------------------------------------------------------------------------------*/
+/*---------------------------------------db----------------------------------------------*/
+/*---------------------------------------------------------------------------------------*/
+
+$('#delete-puzzles-button').click(async function(){
+    await deletePuzzles()
+})
+
+$('#delete-temps-button').click(async function(){
+    await deleteTemps()
+})
+
+$('#reset-db-button').click(async function(){
+    await resetDatabase()
 })

@@ -39,12 +39,20 @@
                     </div>
                 </div>
 
-                <div id="right" class="col my-2 me-2 d-flex flex-column">
-                    <p class="display-5 text-center">ggb</p>
+                <div id="right" class="col my-2 me-2 d-flex flex-column bg-light">
+                    <div class="d-flex flex-row justify-content-center">
+                        <p class="display-6 text-center">ggb</p>
+                        <button id="manage-templates-button" class="btn border-0 rounded-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="manage templates">
+                            <span class="material-symbols-outlined">
+                                grid_4x4
+                            </span>                        
+                        </button>
+                    </div>
+
                     <div id="ggbjs-single-container" class="input-group mb-3">
                         <button id="ggbjs-single-gen-button" class="btn btn-outline-dark rounded-0 w-50" type="button">generate</button>
                         <button id="ggbjs-single-upload-button" class="btn btn-outline-dark rounded-0 w-50" type="button">
-                            <span id="ggbjs-upload-text">upload</span>
+                            <span id="ggbjs-single-upload-text">upload</span>
                             <div id="ggbjs-single-spinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
@@ -54,8 +62,8 @@
                     <div id="js-files-container" class="input-group mb-3">
                         <select id="js-files" class="form-select border border-dark rounded-0 w-50"></select>
                         <input id="js-files-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
-                        <button id="js-files-upload" class="btn btn-outline-dark rounded-0" type="button">
-                            <span class="material-symbols-outlined">
+                        <button id="js-files-upload-button" class="btn btn-outline-dark rounded-0" type="button">
+                            <span id="js-files-upload-text" class="material-symbols-outlined">
                                 upload
                             </span>
                             <div id="js-files-spinner" class="d-none">
@@ -67,8 +75,8 @@
                     <div id="file-functions-container" class="input-group mb-3">
                         <select id="file-functions" class="form-select border border-dark rounded-0 w-50"></select>
                         <input id="file-functions-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
-                        <button id="file-functions-upload" class="btn btn-outline-dark rounded-0" type="button">
-                            <span class="material-symbols-outlined">
+                        <button id="file-functions-upload-button" class="btn btn-outline-dark rounded-0" type="button">
+                            <span id="file-functions-upload-text"class="material-symbols-outlined">
                                 upload
                             </span>
                             <div id="file-functions-spinner" class="d-none">
@@ -77,7 +85,7 @@
                             </div>
                         </button>
                     </div>
-                    <div id="ggbjs-upload-all-container" class="input-group mb-3 w-50 align-self-center"> 
+                    <div id="ggbjs-upload-all-container" class="input-group mb-3 align-self-center"> 
                         <input id="ggbjs-upload-all-num" type="text" class="form-control rounded-0 border border-dark" placeholder="number of puzzles">
                         <button id="ggbjs-upload-all-button" class="btn btn-outline-dark rounded-0" type="button">
                             <span id="ggbjs-upload-all-text">upload all</span>
@@ -87,17 +95,13 @@
                             </div>
                         </button>
                     </div>
-                    <div id="ggbjs-progress-bar-container" class="progress rounded-0">
-                        <div id="ggbjs-progress-bar" class="progress-bar bg-dark" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
 
-
-                    <p class="display-5 text-center mt-5">calc</p>
+                    <p class="display-6 text-center">calc</p>
                     <div id="calc-single-container" class="input-group mb-3">
                         <button id="calc-single-gen-button" class="btn btn-outline-dark rounded-0 w-50" type="button">generate</button>
                         <button id="calc-single-upload-button" class="btn btn-outline-dark rounded-0 flex-fill" type="button">
                             <span id="calc-single-upload-text">upload</span>
-                            <div id="calc-single-pinner" class="d-none">
+                            <div id="calc-single-spinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
@@ -105,9 +109,9 @@
                     </div>
                     <div class="input-group mb-3">
                         <select id="calc-files" class="form-select border border-dark rounded-0 w-50"></select>
-                        <input id="calc-files-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
-                        <button id="calc-files-upload" class="btn btn-outline-dark rounded-0" type="button">
-                            <span class="material-symbols-outlined">
+                        <!--<input id="calc-files-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">-->
+                        <button id="calc-files-upload-button" class="btn btn-outline-dark rounded-0" type="button">
+                            <span id="calc-files-upload-text" class="material-symbols-outlined">
                                 upload
                             </span>
                             <div id="calc-files-spinner" class="d-none">
@@ -118,9 +122,9 @@
                     </div>
                     <div class="input-group mb-3">
                         <select id="file-arrays" class="form-select border border-dark rounded-0 w-50"></select>
-                        <input id="file-arrays--num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
-                        <button id="file-arrays-upload" class="btn btn-outline-dark rounded-0" type="button">
-                            <span class="material-symbols-outlined">
+                        <!--<input id="file-arrays-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">-->
+                        <button id="file-arrays-upload-button" class="btn btn-outline-dark rounded-0" type="button">
+                            <span id="file-arrays-upload-text" class="material-symbols-outlined">
                                 upload
                             </span>
                             <div id="file-arrays-spinner" class="d-none">
@@ -131,9 +135,9 @@
                     </div>
                     <div class="input-group mb-3">
                         <select id="array-questions" class="form-select border border-dark rounded-0 w-50"></select>
-                        <input id="array-questions-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
-                        <button id="array-questions-upload" class="btn btn-outline-dark rounded-0" type="button">
-                            <span class="material-symbols-outlined">
+                        <!--<input id="array-questions-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">-->
+                        <button id="array-questions-upload-button" class="btn btn-outline-dark rounded-0" type="button">
+                            <span id="array-questions-upload-text" class="material-symbols-outlined">
                                 upload
                             </span>
                             <div id="array-questions-spinner" class="d-none">
@@ -142,18 +146,34 @@
                             </div>
                         </button>
                     </div>
-                    <div id="calc-upload-all-container" class="input-group mb-3 w-50 align-self-center"> 
-                        <input id="calc-upload-all-num" type="text" class="form-control rounded-0 border border-dark" placeholder="number of puzzles">
-                        <button id="calc-upload-all-button" class="btn btn-outline-dark rounded-0" type="button">
+                    <div id="calc-upload-all-container" class="input-group mb-3 align-self-center"> 
+                        <!--<input id="calc-upload-all-num" type="text" class="form-control rounded-0 border border-dark" placeholder="number of puzzles">-->
+                        <button id="calc-upload-all-button" class="btn btn-outline-dark rounded-0 w-100" type="button">
                             <span id="calc-upload-all-text">upload all</span>
                             <div id="calc-upload-all-spinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
-                    </div>
-                    <div id="calc-progress-bar-container" class="progress rounded-0">
-                        <div id="calc-progress-bar" class="progress-bar bg-dark" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> 
+
+                    <div id="db-control" class="mt-auto align-self-center">
+                        <button id="delete-puzzles-button" class="btn btn-outline-dark rounded-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete Puzzles">
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
+                        </button>
+                        <button id="delete-temps-button" class="btn btn-outline-dark rounded-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete Temps">
+                            <span class="material-symbols-outlined">
+                                auto_delete
+                            </span>
+                        </button>
+                        <button id="reset-db-button" class="btn btn-outline-dark rounded-0" type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Reset Firebase">
+                            <span class="material-symbols-outlined">
+                                delete_forever
+                            </span>
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -162,5 +182,9 @@
         <script type="module" charset="utf-8" src="../main/parameters.js"></script>
         <script type="module" charset="utf-8" src="../main/style.js"></script> 
         <script type="module" charset="utf-8" src="./puzzleGenerator_v2.js"></script>
+        <script charset="utf-8">
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        </script>
     </body>
 </html>
