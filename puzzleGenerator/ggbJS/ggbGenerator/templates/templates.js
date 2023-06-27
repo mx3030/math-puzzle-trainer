@@ -12,7 +12,9 @@ window.addEventListener('load',async function(){
     /*get array of ggb files from github*/
     /*TODO: faster solution for local dev*/
     ggbFiles = await getGithubFiles(owner,repo,path)
-    ggbFiles = ggbFiles.map(path => `/${path}`);
+    /*correct path*/
+    ggbFiles = ggbFiles.map(path => `../../../../${path}`);
+    console.log(ggbFiles)
     await createGGBFilesDropdownMenu()
 })
 
@@ -21,6 +23,7 @@ async function createGGBFilesDropdownMenu(){
     for(var i=0;i<ggbFiles.length;i++){
         var ggbStringSplit = ggbFiles[i].split('/')
         var ggbString = ggbStringSplit.pop()
+        console.log(ggbFiles[i])
         var dropdownElement = $('<option></option>',{
             'value':ggbFiles[i],
             'id':'ggbFile'+i,
