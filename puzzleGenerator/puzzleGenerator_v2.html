@@ -19,7 +19,6 @@
     <body>
         <div id="game-room" class="container-fluid">
             <div class="row mt-3 mx-0">
-
                 <div id="left" class="col-8 my-2 ms-2"> 
                     <div id="ggb" class="d-flex justify-content-center border border-dark position-relative d-none">
                         <div id="applet_container" class="" style=""></div>
@@ -42,84 +41,119 @@
 
                 <div id="right" class="col my-2 me-2 d-flex flex-column">
                     <p class="display-5 text-center">ggb</p>
-                    <div id="ggbjs-topics-container" class="input-group mb-3">
-                        <button id="ggbjs-gen-button" class="btn btn-outline-dark rounded-0 w-50" type="button">generate</button>
-                        <button id="ggbjs-upload-generated-button" class="btn btn-outline-dark rounded-0 w-50" type="button">
-                            <span id="ggbjs-upload-generated-text">upload</span>
-                            <div id="ggbjsUploadGeneratedSpinner" class="d-none">
+                    <div id="ggbjs-single-container" class="input-group mb-3">
+                        <button id="ggbjs-single-gen-button" class="btn btn-outline-dark rounded-0 w-50" type="button">generate</button>
+                        <button id="ggbjs-single-upload-button" class="btn btn-outline-dark rounded-0 w-50" type="button">
+                            <span id="ggbjs-upload-text">upload</span>
+                            <div id="ggbjs-single-spinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
                     </div>
                     <div id="js-files-container" class="input-group mb-3">
-                        <select id="js-files" class="form-select border border-dark rounded-0"></select>
+                        <select id="js-files" class="form-select border border-dark rounded-0 w-50"></select>
+                        <input id="js-files-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
+                        <button id="js-files-upload" class="btn btn-outline-dark rounded-0" type="button">
+                            <span class="material-symbols-outlined">
+                                upload
+                            </span>
+                            <div id="js-files-spinner" class="d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
                     </div>
                     <div id="file-functions-container" class="input-group mb-3">
-                        <select id="file-functions" class="form-select border border-dark rounded-0"></select>
+                        <select id="file-functions" class="form-select border border-dark rounded-0 w-50"></select>
+                        <input id="file-functions-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
+                        <button id="file-functions-upload" class="btn btn-outline-dark rounded-0" type="button">
+                            <span class="material-symbols-outlined">
+                                upload
+                            </span>
+                            <div id="file-functions-spinner" class="d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
                     </div>
-                    <div id="ggbjs-upload-section" class="input-group mb-3">
-                        <button id="ggbjs-upload-selected-button" class="btn btn-outline-dark rounded-0" type="button">
-                            <span id="ggbjs-upload-selected-text">upload set</span>
-                            <div id="ggbjsUploadSelectedSpinner" class="d-none">
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </button>
+                    <div id="ggbjs-upload-all-container" class="input-group mb-3 w-50 align-self-center"> 
+                        <input id="ggbjs-upload-all-num" type="text" class="form-control rounded-0 border border-dark" placeholder="number of puzzles">
                         <button id="ggbjs-upload-all-button" class="btn btn-outline-dark rounded-0" type="button">
-                            <span id="ggbjs-upload-all-text">all</span>
-                            <div id="ggbjsUploadAllSpinner" class="d-none">
+                            <span id="ggbjs-upload-all-text">upload all</span>
+                            <div id="ggbjs-upload-all-spinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
-                        <input id="ggbjs-number-of-puzzles" type="text" class="form-control rounded-0 border border-dark" placeholder="number of puzzles">
+                    </div>
+                    <div id="ggbjs-progress-bar-container" class="progress rounded-0">
+                        <div id="ggbjs-progress-bar" class="progress-bar bg-dark" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
 
                     <p class="display-5 text-center mt-5">calc</p>
-                    <div class="input-group mb-3">
-                        <button id="calc-gen-button" class="btn btn-outline-dark rounded-0 w-50" type="button">generate</button>
-                        <button id="calc-upload-generated-button" class="btn btn-outline-dark rounded-0 flex-fill" type="button">
-                            <span id="calc-upload-generated-text">upload</span>
-                            <div id="calcUploadGeneratedSpinner" class="d-none">
+                    <div id="calc-single-container" class="input-group mb-3">
+                        <button id="calc-single-gen-button" class="btn btn-outline-dark rounded-0 w-50" type="button">generate</button>
+                        <button id="calc-single-upload-button" class="btn btn-outline-dark rounded-0 flex-fill" type="button">
+                            <span id="calc-single-upload-text">upload</span>
+                            <div id="calc-single-pinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
                     </div>
                     <div class="input-group mb-3">
-                        <select id="calc-files" class="form-select border border-dark rounded-0"></select>
-
-                    </div>
-                    <div class="input-group mb-3">
-                        <select id="file-arrays" class="form-select border border-dark rounded-0"></select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select id="array-questions" class="form-select border border-dark rounded-0"></select>
-                    </div>
-                    <div class="input-group mb-3 d-flex flex-row">
-                        <button id="calc-upload-selected-button" class="btn btn-outline-dark rounded-0 flex-fill" type="button">
-                            <span id="calc-upload-selected-text">upload set</span>
-                            <div id="calcUploadSelectedSpinner" class="d-none">
+                        <select id="calc-files" class="form-select border border-dark rounded-0 w-50"></select>
+                        <input id="calc-files-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
+                        <button id="calc-files-upload" class="btn btn-outline-dark rounded-0" type="button">
+                            <span class="material-symbols-outlined">
+                                upload
+                            </span>
+                            <div id="calc-files-spinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
-                        <button id="calc-upload-all-button" class="btn btn-outline-dark rounded-0 flex-fill" type="button">
+                    </div>
+                    <div class="input-group mb-3">
+                        <select id="file-arrays" class="form-select border border-dark rounded-0 w-50"></select>
+                        <input id="file-arrays--num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
+                        <button id="file-arrays-upload" class="btn btn-outline-dark rounded-0" type="button">
+                            <span class="material-symbols-outlined">
+                                upload
+                            </span>
+                            <div id="file-arrays-spinner" class="d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="input-group mb-3">
+                        <select id="array-questions" class="form-select border border-dark rounded-0 w-50"></select>
+                        <input id="array-questions-num" type="text" class="form-control rounded-0 border border-dark" placeholder="num">
+                        <button id="array-questions-upload" class="btn btn-outline-dark rounded-0" type="button">
+                            <span class="material-symbols-outlined">
+                                upload
+                            </span>
+                            <div id="array-questions-spinner" class="d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div id="calc-upload-all-container" class="input-group mb-3 w-50 align-self-center"> 
+                        <input id="calc-upload-all-num" type="text" class="form-control rounded-0 border border-dark" placeholder="number of puzzles">
+                        <button id="calc-upload-all-button" class="btn btn-outline-dark rounded-0" type="button">
                             <span id="calc-upload-all-text">upload all</span>
-                            <div id="calcUploadAllSpinner" class="d-none">
+                            <div id="calc-upload-all-spinner" class="d-none">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </button>
-                    </div> 
-                    <div class="input-group mb-3">
-                        <button id="test-calc-button" class="btn btn-outline-dark rounded-0" type="button">gen</button>
-                        <input id="calc-string" type="text" aria-label="First name" placeholder="calc string" class="form-control border border-dark" style="width:40%">
-                        <input id="calc-min" type="text" aria-label="Last name" placeholder="<" class="form-control border border-dark">
-                        <input id="calc-max" type="text" aria-label="Last name" placeholder=">" class="form-control border border-dark">
-                        <input id="calc-vars "type="text" aria-label="Last name" placeholder="x" class="form-control border border-dark rounded-0">
+                    </div>
+                    <div id="calc-progress-bar-container" class="progress rounded-0">
+                        <div id="calc-progress-bar" class="progress-bar bg-dark" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
@@ -128,7 +162,5 @@
         <script type="module" charset="utf-8" src="../main/parameters.js"></script>
         <script type="module" charset="utf-8" src="../main/style.js"></script> 
         <script type="module" charset="utf-8" src="./puzzleGenerator_v2.js"></script>
-        <script type="module" charset="utf-8" src="./helper/databaseHelper.js"></script>
-        <script type="module" charset="utf-8" src="./helper/githubHelper.js"></script>
     </body>
 </html>

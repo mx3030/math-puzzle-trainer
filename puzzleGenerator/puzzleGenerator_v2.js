@@ -8,32 +8,41 @@ import {uploadSingleGGBJSPuzzle,uploadGGBJSTopic,uploadAllGGBJSTopics} from './g
 import {extractPuzzleData, uploadCalcTopic,uploadAllCalcTopics} from './calc/calcUpload.js'
 import {getPuzzleFiles} from './helper/githubHelper.js'
 
-var puzzleImports = {}
-var ggbjsPuzzles = {}
-var calcPuzzles = {}
+export var puzzleImports = {}
+export var ggbjsPuzzles = {}
+export var calcPuzzles = {}
 
+/*init puzzle modules and dropdown menu*/
 window.addEventListener('load',async function(){
+    /*github information*/
     const owner = 'mx3030';
     const repo = 'math-puzzle-trainer';
     const path = 'puzzles';
 
+    /*get array of puzzle files in puzzles folder from github*/
+    /*TODO: faster solution for local dev*/
     var puzzleFiles = await getPuzzleFiles(owner,repo,path)
     var puzzleFiles = puzzleFiles.map(path => `../${path}`);
 
     Promise.all(puzzleFiles.map(puzzleFile => import(puzzleFile)))
-    .then(modules => {
+    .then(async (modules) => {
+        /*import puzzle files functions/arrays as modules*/
         for(var i=0;i<puzzleFiles.length;i++){
             puzzleImports[puzzleFiles[i]]=modules[i]
         } 
+        /*split function and array names in different objects*/
         for(var i=0;i<puzzleFiles.length;i++){
             var functionPuzzles = Object.keys(puzzleImports[puzzleFiles[i]]).filter(key => typeof puzzleImports[puzzleFiles[i]][key] === 'function')
             if(functionPuzzles.length!=0) ggbjsPuzzles[puzzleFiles[i]]=functionPuzzles
             var arrayPuzzles  = Object.keys(puzzleImports[puzzleFiles[i]]).filter(key => typeof puzzleImports[puzzleFiles[i]][key] === 'object');
             if(arrayPuzzles.length!=0) calcPuzzles[puzzleFiles[i]]= arrayPuzzles
         }
-
-        createGGBJSFilesDropdownMenu(ggbjsPuzzles)
-        createCalcFilesDropdownMenu(calcPuzzles)
+        /*initalize dropdown menus*/
+        await createGGBJSFilesDropdownMenu(ggbjsPuzzles)
+        createGGBJSFunctionsDropdownMenu(ggbjsPuzzles)
+        await createCalcFilesDropdownMenu(calcPuzzles)
+        createCalcArraysDropdownMenu(calcPuzzles)
+        createCalcQuestionsDropdownMenu(puzzleImports)
     })
 })
 
@@ -41,7 +50,7 @@ window.addEventListener('load',async function(){
 /*---------------------------------------ggbjs-------------------------------------------*/
 /*---------------------------------------------------------------------------------------*/
 
-function createGGBJSFilesDropdownMenu(puzzles){
+async function createGGBJSFilesDropdownMenu(puzzles){
     var fileContainer = $('#js-files')
     var functionsContainer = $('#file-functions')
     for(var path in puzzles){
@@ -51,7 +60,8 @@ function createGGBJSFilesDropdownMenu(puzzles){
             'text':path
         })
         fileContainer.append(dropdownElement) 
-    }    
+    }
+    return Promise.resolve()
 }
 
 $('#js-files').on('change',function(){
@@ -80,11 +90,8 @@ $('#ggbjs-gen-button').click(async function(){
     $('#algebra').addClass('d-none')
     var selectedFile = $('#js-files').val()
     var matchingModule = puzzleImports[selectedFile]
-    console.log(matchingModule)
     var selectedFunction = $('#file-functions').val()
-    console.log(selectedFunction)
     var uploadData = await matchingModule[selectedFunction]() 
-    console.log(uploadData)
     lastGeneratedGGBJS = uploadData
     displayLayoutGeogebra(uploadData)
 })
@@ -120,17 +127,17 @@ $('#ggbjs-upload-all-button').click(async function(){
 /*---------------------------------------calc--------------------------------------------*/
 /*---------------------------------------------------------------------------------------*/
 
-function createCalcFilesDropdownMenu(puzzles){
+async function createCalcFilesDropdownMenu(puzzles){
     var fileContainer = $('#calc-files')
     for(var path in puzzles){
         var dropdownElement = $('<option></option>',{
             'value':path,
             'id':path,
             'text':path
-        }) 
+        })
+        fileContainer.append(dropdownElement)
     }
-    fileContainer.append(dropdownElement)
-
+    return Promise.resolve()
 }
 
 $('#calc-files').on('change',function(){
@@ -151,15 +158,16 @@ function createCalcArraysDropdownMenu(puzzles){
     }
 }
 
-$('file-arrays').on('change',function(){
-    createCalcQuestionsDropdownMenu()
+$('#file-arrays').on('change',function(){
+    createCalcQuestionsDropdownMenu(puzzleImports)
 })
 
-function createCalcQuestionsDropdownMenu(){
+function createCalcQuestionsDropdownMenu(puzzleImports){
     $('#array-questions').empty()
     var questionContainer = $('#array-questions')
+    var selectedFile = $('#calc-files').val()
     var selectedArray = $('#file-arrays').val()
-    var questions = selectedArray.questions
+    var questions = puzzleImports[selectedFile][selectedArray].questions
     for (var key in questions){
         var question = questions[key]
         var questionString = question.string

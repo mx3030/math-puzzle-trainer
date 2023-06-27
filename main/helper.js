@@ -39,10 +39,10 @@ function shuffleArray(array) {
 }
 
 /*dev urls*/
-export var gameURL = "/main/game/game.html"
-export var puzzleGeneratorURL = "/puzzleGenerator/puzzleGenerator.html"
-export var waitingRoomURL = "/main/waitingRoom/waitingRoom.html"
+//export var gameURL = "/main/game/game.html"
+//export var puzzleGeneratorURL = "/puzzleGenerator/puzzleGenerator_v2.html"
+//export var waitingRoomURL = "/main/waitingRoom/waitingRoom.html"
 /*github urls*/
-//export var gameURL = 'https://mx3030.github.io/math-puzzle-trainer/main/game/game.html'
-//export var puzzleGeneratorURL = 'https://mx3030.github.io/math-puzzle-trainer/puzzleGenerator/puzzleGenerator.html'
-//export var waitingRoomURL = 'https://mx3030.github.io/math-puzzle-trainer/main/waitingRoom/waitingRoom.html'
+export var gameURL = 'https://mx3030.github.io/math-puzzle-trainer/main/game/game.html'
+export var puzzleGeneratorURL = 'https://mx3030.github.io/math-puzzle-trainer/puzzleGenerator/puzzleGenerator_v2.html'
+export var waitingRoomURL = 'https://mx3030.github.io/math-puzzle-trainer/main/waitingRoom/waitingRoom.html'
