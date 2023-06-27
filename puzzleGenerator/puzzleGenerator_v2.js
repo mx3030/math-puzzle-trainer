@@ -1,6 +1,6 @@
 import {appID,template,toolbar,injectGeoGebraApplet} from '../main/parameters.js'
 import {deepCopy,templatesURL} from '../main/helper.js'
-import {breakpoint,disableScrollOnIOS} from '/main/style.js'
+import {breakpoint,disableScrollOnIOS} from '../main/style.js'
 import {genCalcMain} from './calc/calcGenerator.js'
 import {displayLayoutMain,displayCalc, displayEqEasy, displayEq} from './calc/calcDisplay.js'
 import {displayLayoutGeogebra} from './ggbJS/ggbDisplay.js'
