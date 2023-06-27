@@ -1,18 +1,40 @@
+import {getGithubFiles} from '../../../helper/githubHelper.js'
+import {appletSize,template,toolbar,injectGeoGebraApplet} from '../../../../main/parameters.js'
+import {breakpoint} from '../../../../main/style.js'
+
+var ggbFiles
 window.addEventListener('load',async function(){
     /*github information*/
     const owner = 'mx3030';
     const repo = 'math-puzzle-trainer';
-    const path = 'puzzleGenerator/ggbjs/ggbGenerator/templates/ggb';
+    const path = 'puzzleGenerator/ggbJS/ggbGenerator/templates/ggb';
 
-    /*get array of puzzle files in puzzles folder from github*/
+    /*get array of ggb files from github*/
     /*TODO: faster solution for local dev*/
-    var puzzleFiles = await getPuzzleFiles(owner,repo,path)
-    console.log(puzzleFiles)
-
+    ggbFiles = await getGithubFiles(owner,repo,path)
+    ggbFiles = ggbFiles.map(path => `/${path}`);
+    await createGGBFilesDropdownMenu()
 })
 
-$('#load-template-button').on('click',function(){
+async function createGGBFilesDropdownMenu(){
+    var ggbDropdownMenu = $('#load-template-selection')
+    for(var i=0;i<ggbFiles.length;i++){
+        var ggbStringSplit = ggbFiles[i].split('/')
+        var ggbString = ggbStringSplit.pop()
+        var dropdownElement = $('<option></option>',{
+            'value':ggbFiles[i],
+            'id':'ggbFile'+i,
+            'text':ggbString
+        })
+        ggbDropdownMenu.append(dropdownElement) 
+    }
+    return Promise.resolve()
+}
 
+$('#load-template-button').on('click',function(){
+    var selectedGGBFile = $('#load-template-selection').val()
+    console.log(selectedGGBFile)
+    injectGeoGebraApplet(breakpoint,toolbar.simple,selectedGGBFile)
 })
 
 

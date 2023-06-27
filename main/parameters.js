@@ -18,10 +18,10 @@ export var appletSize = {
 }
 
 export var template = {
-    geo:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/geo.ggb',
-    geo64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/base64/geo.base64',
-    clean:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/clean.ggb',
-    clean64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/base64/clean.base64', 
+    geo:'/puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/geo.ggb',
+    geo64:'/puzzleGenerator/ggbJS/ggbGenerator/templates/base64/geo.base64',
+    clean:'/puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/clean.ggb',
+    clean64:'/puzzleGenerator/ggbJS/ggbGenerator/templates/base64/clean.base64', 
 }
 
 export var toolbar = {
@@ -112,7 +112,7 @@ var parameters_lg = {
 
 var parameters_xl = {
     "id":appID,
-    //"filename":ggbFile,
+    //"filename":template.clean,
     "width":appletSize.xl[0],
     "height":appletSize.xl[1],
     "prerelease":false,
@@ -131,30 +131,30 @@ var parameters_xl = {
 };
 
 
-export function injectGeoGebraApplet(template=null,breakpoint,toolbarString){
+export function injectGeoGebraApplet(breakpoint,toolbarString,template=null){
     if(breakpoint=='xs'){
         parameters_xs['filename']=template
-        parameters_xs['custumToolBar']=toolbarString
+        parameters_xs['customToolBar']=toolbarString
         var applet_xs = new GGBApplet('5.0', parameters_xs);
         applet_xs.inject('applet_container')
     } else if(breakpoint=='sm'){
         parameters_sm['filename']=template
-        parameters_xs['custumToolBar']=toolbarString
+        parameters_sm['customToolBar']=toolbarString
         var applet_sm = new GGBApplet('5.0', parameters_sm);
         applet_sm.inject('applet_container')
     } else if(breakpoint=='md'){
         parameters_md['filename']=template
-        parameters_xs['custumToolBar']=toolbarString
+        parameters_md['customToolBar']=toolbarString
         var applet_md = new GGBApplet('5.0', parameters_md);
         applet_md.inject('applet_container')
     }else if(breakpoint=='lg'){
         parameters_lg['filename']=template
-        parameters_xs['custumToolBar']=toolbarString
+        parameters_lg['customToolBar']=toolbarString
         var applet_lg = new GGBApplet('5.0', parameters_lg);
         applet_lg.inject('applet_container')
     }else{
         parameters_xl['filename']=template
-        parameters_xs['custumToolBar']=toolbarString
+        parameters_xl['customToolBar']=toolbarString
         var applet_xl = new GGBApplet('5.0', parameters_xl);
         applet_xl.inject('applet_container')
     }

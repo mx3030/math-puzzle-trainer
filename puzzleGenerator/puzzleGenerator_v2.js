@@ -6,7 +6,7 @@ import {displayLayoutMain,displayCalc, displayEqEasy, displayEq} from './calc/ca
 import {displayLayoutGeogebra} from './ggbJS/ggbDisplay.js'
 import {uploadSingleGGBJSPuzzle,uploadGGBJSFile,uploadGGBJSFunction,uploadGGBJSAll} from './ggbJS/ggbUpload.js'
 import {generatePuzzleData, uploadCalcFile,uploadCalcArray,uploadCalcQuestion,uploadCalcAll} from './calc/calcUpload.js'
-import {getPuzzleFiles} from './helper/githubHelper.js'
+import {getGithubFiles} from './helper/githubHelper.js'
 import {deleteTemps,deletePuzzles,resetDatabase} from './helper/databaseHelper.js'
 
 export var puzzleImports = {}
@@ -22,7 +22,7 @@ window.addEventListener('load',async function(){
 
     /*get array of puzzle files in puzzles folder from github*/
     /*TODO: faster solution for local dev*/
-    var puzzleFiles = await getPuzzleFiles(owner,repo,path)
+    var puzzleFiles = await getGithubFiles(owner,repo,path)
     var puzzleFiles = puzzleFiles.map(path => `../${path}`);
 
     Promise.all(puzzleFiles.map(puzzleFile => import(puzzleFile)))
