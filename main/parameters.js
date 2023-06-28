@@ -24,7 +24,7 @@ export var template = {
     cleanWithInput:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/cleanWithInput.ggb',
     clean64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/base64/clean.base64', 
     cleanFreeAxes:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/cleanFreeAxes.ggb',
-    cleanFreeAxes64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/cleanFreeAxes.ggb'
+    cleanFreeAxes64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/base64/cleanFreeAxes.base64'
 }
 
 export var toolbar = {

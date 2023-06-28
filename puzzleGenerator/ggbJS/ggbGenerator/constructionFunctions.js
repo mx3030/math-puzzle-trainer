@@ -1,6 +1,6 @@
 import {appID,appletSize,template,injectGeoGebraApplet,ggbSetBase64} from '../../../main/parameters.js'
 import {breakpoint} from '../../../main/style.js'
-import {delay} from '../../../main/helper.js'
+import {delay,generateRandomNumberWithStep} from '../../../main/helper.js'
 import {Point,Segment,Line,Angle} from '../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
 import {Triangle,Pgramm,Polygon,Rectangle} from '../../../puzzleGenerator/ggbJS/ggbGenerator/shapes.js'
 
@@ -41,6 +41,27 @@ export function createMirrorPointOnLine(point1,point2){
     var yNew = point1.y-distY
     var newPoint = new Point(xNew,yNew,point2.name+'Mirror')
     return newPoint
+}
+
+export function createTwoRandomPointsOnLine(m,c,min=-5,max=5,step=1){
+    /*create two points for specific linear function y=mx+c*/
+    var p1x = generateRandomNumberWithStep(min,max,step)
+    var p2x = generateRandomNumberWithStep(min,max,step)
+    if(p1x==p2x) p2x = generateRandomNumberWithStep(min,max,step)
+    var p1y = m*p1x+c
+    var p2y = m*p2x+c
+    var point1 = new Point(p1x,p1y)
+    var point2 = new Point(p2x,p2y)
+    return [point1,point2]
+}
+
+export function getMaxAbsYCoordValue(listOfPoints){
+    /*get the maximum absolute y value from listOfPoints*/
+    var absYCoords = []
+    for(var i=0;i<listOfPoints.length;i++){
+        absYCoords.push(Math.abs(listOfPoints[i].y))
+    }
+    return math.max(absYCoords)
 }
 
 export function setColor(obj,color,id=appID){

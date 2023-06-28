@@ -39,6 +39,15 @@ export async function setCoordSystem(points,space=1){
     return Promise.resolve([(minX+maxX)/2,(minY+maxY)/2])
 }
 
+export async function positionCoordSystem(ymax,yMovement=0){
+    var centerPoint = {
+        point:'temp',
+        x:0,
+        y:yMovement
+    }
+    return await setCoordSystem([centerPoint],ymax)
+}
+
 
 /*----------------------------------------------------------------------------------------------------*/
 /*--------------------------------------MAIN----------------------------------------------------------*/
@@ -97,7 +106,15 @@ export function displayLayoutGeogebra(puzzleData,game=false,puzzleNumber=null){
 }
 
 function checkGGB(mq,sol){
-    if(Number(mq.text())==sol) return true
-    else return false
+    var solType = typeof sol
+    if(solType=='number'){
+        if(Number(mq.text())==sol) return true
+        else return false
+    } else if(solType=='string'){
+        if(mq.text()==sol) return true
+        else return false
+    }
+    
 }
+
 

@@ -46,6 +46,14 @@ export function roundToTens(number) {
   return Math.round(number / 10) * 10;
 }
 
+export function generateRandomNumberWithStep(min, max, step) {
+  const range = max - min;
+  const randomSteps = math.randomInt(range / step + 1);  // Generate random number of steps
+  const randomNumber = min + randomSteps * step;  // Calculate the random number within the specified step
+
+  return randomNumber;
+}
+
 /*dev urls*/
 export var gameURL = "/main/game/game.html"
 export var puzzleGeneratorURL = "/puzzleGenerator/puzzleGenerator_v2.html"
