@@ -4,7 +4,7 @@ import {Triangle,Pgramm,Polygon,Rectangle} from '../../../../puzzleGenerator/ggb
 import {getDistance,setColor} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
 import {ggbSetBase64,template} from '../../../../main/parameters.js'
 
-export async function class6_geometry_triangle_height_easy(){
+export async function class6_easy_geometry_triangle(){
     /*initalize puzzle*/
     resetImportantPoints()
     await ggbSetBase64(template.geo64);
@@ -46,9 +46,4 @@ export async function class6_geometry_triangle_height_easy(){
     return puzzleData
 }
 
-export async function class7_geometry_angle_easy(){
-    resetImportantPoints()
-    await ggbSetBase64(template.clean64);
-
-}
 

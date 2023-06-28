@@ -1,4 +1,4 @@
-export var calc_integer_easy =
+export var class7_easy_calc_integer=
     {
         schoolClass:['class7'],
         topics : ['calc','integer'],
@@ -65,7 +65,7 @@ export var calc_integer_easy =
         },
     }
 
-export var calc_integer_medium =
+export var class7_medium_calc_integer =
     {
         schoolClass:['class7'],
         topics : ['calc','integer'],

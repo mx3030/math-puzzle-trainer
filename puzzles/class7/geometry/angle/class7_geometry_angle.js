@@ -13,7 +13,7 @@ import {
     createMirrorPointOnLine
     } from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
 
-export async function class7_geometry_angle_easy_1(){
+export async function class7_easy_geometry_angle_1(){
     resetImportantPoints()
     await ggbSetBase64(template.clean64);
     //await startPuzzleConstructionMode(template.cleanWithInput,false)
@@ -73,7 +73,7 @@ export async function class7_geometry_angle_easy_1(){
     return puzzleData
 }
 
-export async function class7_geometry_angle_easy_2(){
+export async function class7_easy_geometry_angle_2(){
     resetImportantPoints()
     await ggbSetBase64(template.clean64);
     //await startPuzzleConstructionMode(template.cleanWithInput,false)
@@ -132,7 +132,7 @@ export async function class7_geometry_angle_easy_2(){
     return puzzleData
 }
 
-export async function class7_geometry_angle_easy_3(){
+export async function class7_easy_geometry_angle_3(){
     resetImportantPoints()
     await ggbSetBase64(template.clean64);
     //await startPuzzleConstructionMode(template.cleanWithInput,false)

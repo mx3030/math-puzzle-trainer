@@ -1,4 +1,4 @@
-export var calc_percent_easy =
+export var class7_easy_calc_percent =
     {
         schoolClass:['class7'],
         topics : ['calc','percent'],

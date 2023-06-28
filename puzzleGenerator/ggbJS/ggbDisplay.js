@@ -2,6 +2,7 @@ import {breakpoint} from '../../main/style.js'
 import {appletSize,appID} from '../../main/parameters.js'
 import {getFontSize} from '../../puzzleGenerator/calc/calcDisplay.js'
 import {loadPuzzle,updateInfos} from '../../main/game/game.js'
+import {checkGGBMain} from '../../puzzleGenerator/ggbJS/ggbCheckers.js'
 
 /*zoom coordinate system to object*/
 export async function setCoordSystem(points,space=1){
@@ -39,13 +40,13 @@ export async function setCoordSystem(points,space=1){
     return Promise.resolve([(minX+maxX)/2,(minY+maxY)/2])
 }
 
-export async function positionCoordSystem(ymax,yMovement=0){
+export async function positionCoordSystem(max,yMovement=0){
     var centerPoint = {
         point:'temp',
         x:0,
         y:yMovement
     }
-    return await setCoordSystem([centerPoint],ymax)
+    return await setCoordSystem([centerPoint],max)
 }
 
 
@@ -77,7 +78,11 @@ export function displayLayoutGeogebra(puzzleData,game=false,puzzleNumber=null){
     problemArea.append(question)
     var staticField = MQ.StaticMath(document.getElementById('question'))
     var scope = puzzleData.scope
-    staticField.latex(Object.keys(scope)[0]+'=')
+    /*TODO: manage multiple solution fields*/
+    var scopeLatex = Object.values(scope)[0].latex
+    /*check if puzzle has specific question string for solution input*/
+    if((typeof scopeLatex)!='string') staticField.latex(Object.keys(scope)[0]+'=')
+    else staticField.latex(scopeLatex)
     var answer = $('<span>')
     .addClass('align-self-center')
     .attr('id','answer')
@@ -85,9 +90,10 @@ export function displayLayoutGeogebra(puzzleData,game=false,puzzleNumber=null){
     problemArea.append(answer)
     var mq = MQ.MathField(document.getElementById('answer'),{
         handlers: {
-            enter: function() {
-                var check = checkGGB(mq,Object.values(scope)[0].sol)
-                console.log(check)
+            enter: async function() {
+                /*run different checkers depending on puzzle*/
+                /*TODO: checker for drawings*/
+                var check = await checkGGBMain(puzzleData,mq) 
                 if(game==true){
                     loadPuzzle(puzzleNumber+1)
                     updateInfos(puzzleNumber,check)
@@ -105,16 +111,5 @@ export function displayLayoutGeogebra(puzzleData,game=false,puzzleNumber=null){
     staticField2.latex(Object.values(scope)[0].unit)
 }
 
-function checkGGB(mq,sol){
-    var solType = typeof sol
-    if(solType=='number'){
-        if(Number(mq.text())==sol) return true
-        else return false
-    } else if(solType=='string'){
-        if(mq.text()==sol) return true
-        else return false
-    }
-    
-}
 
 

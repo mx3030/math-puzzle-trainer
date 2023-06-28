@@ -86,3 +86,19 @@ export var colorMap = {
     'gold':[255,215,0],
     'purple':[128,0,128]
 }
+
+export function setPointStyle(obj,size=5,style=0){
+    app.setPointSize(obj.name,size)
+    app.setPointStyle(obj.name,style)
+}
+
+export function createRandomPolyFunctionString(degree, min, max){
+    var functionString=''
+    for(var i=0;i<degree;i++){
+        var randomInt = math.randomInt(min,max)
+        var part = '('+randomInt+'*x^'+i+')'
+        functionString = functionString+'+'+part
+    }
+    var simpleFunctionString = math.simplify(functionString)
+    return simpleFunctionString.toString()
+}
