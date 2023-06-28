@@ -11,6 +11,9 @@ export const myLatexHandler = {
     },
     'myMult':function(node,options){
         return node.args[0].toTex(options)+ '\\cdot' + node.args[1].toTex(options)
+    },
+    'myPercent':function(node,options){
+        return node.args[0].toTex(options)+'\\% \,\,\\text{von}\,\,'+node.args[1].toTex(options)+'\,\,\\text{'+node.args[2].toTex(options)+'}'
     }
 }
 
@@ -26,6 +29,9 @@ export const myStringHandler = {
     },
     'myMult':function(node,options){
         return '('+node.args[0].toString(options)+')*('+node.args[1].toString(options)+')' 
+    },
+    'myPercent':function(node,options){
+        return '('+node.args[0].toString(options)+'/100)*'+node.args[1].toString(options)
     }
 }
 
@@ -268,3 +274,10 @@ export function genEq(string,min,max,useSpecialSymbols=true,vars=['x']){
 }
 
 
+/*----------------------------------------------------------------------------------------------------*/
+/*------------------------------------------percentile------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------*/
+
+export function genPercentileCalc(string,percentile,whole){
+
+}

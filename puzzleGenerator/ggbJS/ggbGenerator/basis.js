@@ -1,5 +1,5 @@
 import {appID} from '../../../main/parameters.js'
-import {toDeg,toRad,samePoints} from '../../../puzzleGenerator/ggbJS/ggbGenerator/functions.js'
+import {toDeg,toRad,samePoints} from '../../../puzzleGenerator/ggbJS/ggbGenerator/objectFunctions.js'
 
 export class ggbObject{
     constructor(name=null,aux=false,id=appID){
@@ -19,7 +19,10 @@ export class ggbObject{
         }
     }
 
-    setLabelVisible(visible=this.labelVisible){
+    setLabelVisible(visible=this.labelVisible,mode=false){
+        if(mode!=false){
+            eval(`${this.id}.evalCommand('SetLabelMode(${this.name},${mode})')`)
+        }
         if(visible==true){
             eval(`${this.id}.evalCommand('ShowLabel(${this.name},true)')`)
         } else { 
@@ -43,7 +46,6 @@ export class ggbObject{
     }
 }
 
-
 export var importantPoints = []
 export function resetImportantPoints(){
     importantPoints=[]
@@ -64,7 +66,7 @@ export class Point extends ggbObject{
         else eval(`${this.id}.evalCommand('${this.name}=Point({${this.x},${this.y}})')`); 
         /*update points array if not auxilary object*/
         if(this.aux==false) importantPoints.push({point:this.name,x:this.x,y:this.y})
-        eval(`${this.id}.evalCommand('SetFixed(${this.name},true)')`)
+            eval(`${this.id}.evalCommand('SetFixed(${this.name},true)')`)
     }
 
     setVisible(visible=this.visible,view=1){
@@ -81,6 +83,7 @@ export class Point extends ggbObject{
         var pointClone = new Point(x,y,name)
         return pointClone
     }
+
 
 }
 
@@ -217,7 +220,7 @@ export class Segment extends ggbObject {
         this.start = newStartPoint
         this.end = newEndPoint
     }
- 
+
     draw(){
         if(this.name==null) this.name=eval(`${this.id}.evalCommandGetLabels('Segment((${this.start.x},${this.start.y}),(${this.end.x},${this.end.y}))')`);
         else eval(`${this.id}.evalCommand('${this.name}=Segment((${this.start.x},${this.start.y}),(${this.end.x},${this.end.y}))')`);
@@ -260,26 +263,98 @@ export class Segment extends ggbObject {
     }
 }
 
+export class Line extends ggbObject{
+    constructor(pointA,pointB,name=null,aux=false,id=appID){
+        super(name,aux,id)
+        this.type='line'
+        this.start=pointA
+        /*line can be drawn be two points or one point+angle*/
+        if(pointB.type=='point'){
+            /*generate line by two points*/
+            this.end=pointB
+            var deltaX = this.end.x-this.start.x
+            var deltaY = this.end.y-this.start.y            
+            var temp=(deltaY)/(deltaX)
+            temp = Math.atan(temp)
+            if(deltaX>=0 && deltaY>=0){
+                this.angle=toDeg(temp)
+            } else if(deltaX<0) {
+                this.angle=toDeg(temp+Math.PI)
+            } else if(deltaX>=0 && deltaY<0){
+                this.angle=toDeg(temp+2*Math.PI)
+            }
+        } else {
+            /*generate line by point + angle*/
+            this.angle=pointB
+            /*length not important*/
+            this.length = 1
+            if(this.angle<=90){
+                var temp=this.angle
+                var angleRad = toRad(temp)
+                var deltaX = this.length*Math.cos(angleRad)
+                var deltaY = this.length*Math.sin(angleRad)
+            } else if(this.angle<=180 && this.angle>90){ 
+                var temp= 180-this.angle
+                var angleRad = toRad(temp)
+                var deltaX = -this.length*Math.cos(angleRad)
+                var deltaY = this.length*Math.sin(angleRad)
+            } else if(this.angle<=270 && this.angle>180) {
+                var temp=this.angle-180
+                var angleRad = toRad(temp)
+                var deltaX = -this.length*Math.cos(angleRad)
+                var deltaY = -this.length*Math.sin(angleRad)
+            } else {
+                var temp=360-this.angle
+                var angleRad = toRad(temp)
+                var deltaX = this.length*Math.cos(angleRad)
+                var deltaY = -this.length*Math.sin(angleRad)
+            }
+            var endX = pointA.x+deltaX
+            var endY = pointA.y+deltaY
+            this.end = new Point(endX,endY)
+        }
+
+        this.start.name = this.name+'Start'
+        this.end.name = this.name+'End'
+    }
+
+    draw(){
+        if(this.name==null) this.name=eval(`${this.id}.evalCommandGetLabels('Line((${this.start.x},${this.start.y}),(${this.end.x},${this.end.y}))')`);
+        else eval(`${this.id}.evalCommand('${this.name}=Line((${this.start.x},${this.start.y}),(${this.end.x},${this.end.y}))')`);
+        eval(`${this.id}.evalCommand('SetFixed(${this.name},true)')`)
+    }
+ 
+}
+
 export class Angle extends ggbObject {
     constructor(seg1,seg2,point3=null,name=null,id=appID){
         super(name,id)
-        if(samePoints(seg1.start,seg2.start)){
-            this.point1 = seg1.point(seg1.length/6)
-            this.point2 = seg1.start
-            this.point3 = seg2.point(seg2.length/6)
-        } else if(samePoints(seg1.start,seg2.end)){
-            this.point1 = seg1.point(seg1.length/6)
-            this.point2 = seg1.start
-            this.point3 = seg2.point(seg2.length/6)
-        } else if(samePoints(seg1.end,seg2.start)){
-            this.point1 = seg1.point(seg1.length/6)
-            this.point2 = seg1.end
-            this.point3 = seg2.point(seg1.length/6)
-        } else if(samePoints(seg1.end,seg2.end)){
-            this.point1 = seg1.point(seg1.length/6)
-            this.point2 = seg1.end
-            this.point3 = seg2.point(seg2.length/6)
+        if(seg1.type=='segment' && seg2.type=='segment'){
+            /*get angle between two segments*/
+            if(samePoints(seg1.start,seg2.start)){
+                this.point1 = seg1.point(seg1.length/6)
+                this.point2 = seg1.start
+                this.point3 = seg2.point(seg2.length/6)
+            } else if(samePoints(seg1.start,seg2.end)){
+                this.point1 = seg1.point(seg1.length/6)
+                this.point2 = seg1.start
+                this.point3 = seg2.point(seg2.length/6)
+            } else if(samePoints(seg1.end,seg2.start)){
+                this.point1 = seg1.point(seg1.length/6)
+                this.point2 = seg1.end
+                this.point3 = seg2.point(seg1.length/6)
+            } else if(samePoints(seg1.end,seg2.end)){
+                this.point1 = seg1.point(seg1.length/6)
+                this.point2 = seg1.end
+                this.point3 = seg2.point(seg2.length/6)
+            }
+        } else if(seg1.type=='point' && seg2.type=='point' && point3.type=='point'){
+            /*get angle between three points*/
+            this.point1 = seg1
+            this.point2 = seg2
+            this.point3 = point3
         }
+
     }
 
     mirror(){

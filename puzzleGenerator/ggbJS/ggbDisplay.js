@@ -1,19 +1,19 @@
 import {breakpoint} from '../../main/style.js'
-import {appletSize} from '../../main/parameters.js'
+import {appletSize,appID} from '../../main/parameters.js'
 import {getFontSize} from '../../puzzleGenerator/calc/calcDisplay.js'
 import {loadPuzzle,updateInfos} from '../../main/game/game.js'
 
 /*zoom coordinate system to object*/
-export async function setCoordSystem(points){
-    var maxX=points[0].x+1;
-    var minX=points[0].x-1;
-    var maxY=points[0].y+1;
-    var minY=points[0].y-1;
+export async function setCoordSystem(points,space=1){
+    var maxX=points[0].x+space;
+    var minX=points[0].x-space;
+    var maxY=points[0].y+space;
+    var minY=points[0].y-space;
     points.forEach(object => {
-        if(object.x>maxX) maxX = object.x+1
-        else if(object.x<minX) minX = object.x-1
-        if(object.y>maxY) maxY = object.y+1
-        else if(object.y<minY) minY = object.y-1
+        if(object.x>maxX) maxX = object.x+space
+        else if(object.x<minX) minX = object.x-space
+        if(object.y>maxY) maxY = object.y+space
+        else if(object.y<minY) minY = object.y-space
     });
     var distX = maxX-minX
     var distY = maxY-minY
@@ -48,6 +48,17 @@ var MQ = MathQuill.getInterface(2);
 
 export function displayLayoutGeogebra(puzzleData,game=false,puzzleNumber=null){
     //await ggbSetBase64(puzzleData.question)
+    /*show ruler control if needed*/
+    if(puzzleData.ruler==true) $('#geo').removeClass('d-none')
+    else $('#geo').addClass('d-none')
+    /*show toolbar if needed*/
+    if(puzzleData.toolbar!=false){
+        eval(`${appID}.setCustomToolBar(${puzzleData.toolbar})`)
+        eval(`${appID}.showToolBar(true)`)
+    } else {
+        eval(`${appID}.showToolBar(false)`)
+    }
+
     var fontSize = getFontSize()    
     var problemArea = $('#ggb-problem-area')
     var question = $('<span>')
@@ -67,6 +78,7 @@ export function displayLayoutGeogebra(puzzleData,game=false,puzzleNumber=null){
         handlers: {
             enter: function() {
                 var check = checkGGB(mq,Object.values(scope)[0].sol)
+                console.log(check)
                 if(game==true){
                     loadPuzzle(puzzleNumber+1)
                     updateInfos(puzzleNumber,check)

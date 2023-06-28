@@ -1,7 +1,7 @@
 import {setCoordSystem} from '../../../../puzzleGenerator/ggbJS/ggbDisplay.js'
-import {ggbObject,Point,Segment,Angle,importantPoints,resetImportantPoints} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
+import {Point,Segment,Angle,importantPoints,resetImportantPoints} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
 import {Triangle,Pgramm,Polygon,Rectangle} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/shapes.js'
-import {getDistance,setColor} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/functions.js'
+import {getDistance,setColor} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
 import {ggbSetBase64,template} from '../../../../main/parameters.js'
 
 export async function class6_geometry_triangle_height_easy(){
@@ -17,7 +17,7 @@ export async function class6_geometry_triangle_height_easy(){
     var t1 = new Triangle(seg1,seg2,null,'t1')
     t1.draw() 
     t1.drawPoints(false)
-    setColor(t1.seg3,'red')
+    setColor(t1.seg3,'purple')
     var sol = Number(getDistance(t1.seg3,t1.getOppositePoint(t1.seg3)).toFixed(1))
 
     /*init layout and ruler*/

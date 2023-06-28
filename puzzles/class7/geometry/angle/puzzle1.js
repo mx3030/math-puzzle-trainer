@@ -1,54 +1,201 @@
 import {setCoordSystem} from '../../../../puzzleGenerator/ggbJS/ggbDisplay.js'
-import {ggbObject,Point,Segment,Angle,importantPoints,resetImportantPoints} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
+import {ggbSetBase64,template,toolbar} from '../../../../main/parameters.js'
+import {delay} from '../../../../main/helper.js'
+import {Point,Segment,Line,Angle,importantPoints,resetImportantPoints} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
 import {Triangle,Pgramm,Polygon,Rectangle} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/shapes.js'
-import {getDistance,setColor} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/functions.js'
-import {ggbSetBase64,template} from '../../../../main/parameters.js'
+import {
+    getDistance,
+    setColor,
+    getRandomColor,
+    colorMap,
+    getIntersection,
+    startPuzzleConstructionMode,
+    createMirrorPointOnLine
+    } from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
 
 export async function class7_geometry_angle_easy_1(){
-    /*initalize puzzle*/
     resetImportantPoints()
-    await ggbSetBase64(template.geo64);
+    await ggbSetBase64(template.clean64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
 
     /*create random problem*/
-    var pointA = new Point(math.randomInt(1,20),math.randomInt(1,20),'A')
-    var pointB = new Point(math.randomInt(10,1),math.randomInt(6,15),'B')
-    var seg1 = new Segment(pointA,pointB,null,'s1')
-    var seg2 = new Segment(seg1.start,5,80,'s2') 
-    var t1 = new Triangle(seg1,seg2,null,'t1')
-    t1.draw() 
-    t1.drawPoints(false)
-    setColor(t1.seg3,'red')
-    var sol = Number(getDistance(t1.seg3,t1.getOppositePoint(t1.seg3)).toFixed(1))
+    var pointA = new Point(math.randomInt(1,1),math.randomInt(1,1),'A')
+    pointA.draw()
+    pointA.setVisible(false)
+    var pointB = new Point(math.randomInt(-5,5),math.randomInt(-5,5),'B')
+    var angle1 = math.randomInt(1,90)
+    var angleDiff = math.randomInt(20,120)
+    var angle2 = angle1+angleDiff
+    var lineA = new Line(pointA,angle1,'lineA')
+    var lineB = new Line(pointA,angle2,'lineB')
+    lineA.draw()
+    lineB.draw()
+    //delay(1000)
+    var pointC = getIntersection(lineA,lineB)
+    var angle1 = new Angle(lineA.end,pointC,lineB.end,'angle1') 
+    angle1.draw()
+    angle1.setCaption(angleDiff.toString()+'°')
+    angle1.setLabelVisible(true)
+    setColor(angle1,getRandomColor())
+    var pointD = createMirrorPointOnLine(lineA.start,lineA.end,'D')
+    var pointE = createMirrorPointOnLine(lineA.start,lineB.end,'E')
+    var angle2 = new Angle(pointD,pointC,pointE,'angle2')
+    angle2.draw()
+    angle2.setCaption('\u03B1')
+    angle2.setLabelVisible(true)
+    setColor(angle2,'red')
 
     /*init layout and ruler*/
-    var center = await setCoordSystem(importantPoints)
+    var center = await setCoordSystem(importantPoints,3)
     app.setCoords('G',center[0],center[1])
     app.setGridVisible(false)
+    app.setAxesVisible(false)
     app.setOnTheFlyPointCreationActive(false)
-
-    /*TODO: calculate scope sol*/
-    //var sol = getDistance 
+    
+    /*calculate solutions*/
+    var sol = angleDiff 
 
     /*create data for upload*/
     var puzzleData = {
-        schoolClass : ['class6'],
-        topics : ['geometry','triangle'],
+        schoolClass : ['class7'],
+        topics : ['geometry','angle'],
         difficulty : ['easy'],
         layout : 'geogebra',
-        extras : 'ruler',
+        ruler : false,
+        toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme die Höhe $$h$$ des Dreiecks.",
+        questionText : "Bestimme den Winkel $$\alpha$$.",
         scope : {
-            'h':{sol:sol,unit:"cm"}
+            '\\alpha':{sol:sol,unit:"°"}
         },
     }
     return puzzleData
 }
 
-export async function class7_geometry_angle_easy(){
+export async function class7_geometry_angle_easy_2(){
     resetImportantPoints()
     await ggbSetBase64(template.clean64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
 
+    /*create random problem*/
+    var pointA = new Point(math.randomInt(1,1),math.randomInt(1,1),'A')
+    pointA.draw()
+    pointA.setVisible(false)
+    var pointB = new Point(math.randomInt(-5,5),math.randomInt(-5,5),'B')
+    var angle1 = math.randomInt(1,90)
+    var angleDiff = math.randomInt(20,120)
+    var angle2 = angle1+angleDiff
+    var lineA = new Line(pointA,angle1,'lineA')
+    var lineB = new Line(pointA,angle2,'lineB')
+    lineA.draw()
+    lineB.draw()
+    //delay(1000)
+    var pointC = getIntersection(lineA,lineB)
+    var angle1 = new Angle(lineA.end,pointC,lineB.end,'angle1') 
+    angle1.draw()
+    angle1.setCaption(angleDiff.toString()+'°')
+    angle1.setLabelVisible(true)
+    setColor(angle1,getRandomColor())
+    var pointD = createMirrorPointOnLine(lineA.start,lineA.end,'D')
+    var angle2 = new Angle(lineB.end,pointC,pointD,'angle2')
+    angle2.draw()
+    angle2.setCaption('\u03B1')
+    angle2.setLabelVisible(true)
+    setColor(angle2,'red')
+
+    /*init layout and ruler*/
+    var center = await setCoordSystem(importantPoints,3)
+    app.setCoords('G',center[0],center[1])
+    app.setGridVisible(false)
+    app.setAxesVisible(false)
+    app.setOnTheFlyPointCreationActive(false)
+    
+    /*calculate solutions*/
+    var sol = 180-angleDiff 
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['geometry','angle'],
+        difficulty : ['easy'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'puzzle',
+        question : app.getBase64(),
+        questionText : "Bestimme den Winkel $$\alpha$$.",
+        scope : {
+            '\\alpha':{sol:sol,unit:"°"}
+        },
+    }
+    return puzzleData
 }
+
+export async function class7_geometry_angle_easy_3(){
+    resetImportantPoints()
+    await ggbSetBase64(template.clean64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
+
+    /*create random problem*/
+    var pointA = new Point(math.randomInt(1,1),math.randomInt(1,1),'A')
+    pointA.draw()
+    pointA.setVisible(false)
+    var pointB = new Point(math.randomInt(-5,5),math.randomInt(-5,5),'B')
+    var angleA = math.randomInt(1,90)
+    var angleDiff1 = math.randomInt(20,130)
+    var angleB = angleA+angleDiff1
+    var angleDiff2 = math.randomInt(angleDiff1,160)
+    var angleC = angleA+angleDiff2
+    var lineA = new Line(pointA,angleA,'lineA')
+    var lineB = new Line(pointA,angleB,'lineB')
+    var lineC = new Line(pointA,angleC,'lineC')
+    lineA.draw()
+    lineB.draw()
+    lineC.draw()
+    //delay(1000)
+    var pointC = getIntersection(lineA,lineB)
+    var angle1 = new Angle(lineA.end,pointC,lineB.end,'angle1') 
+    angle1.draw()
+    angle1.setCaption(angleDiff1.toString()+'°')
+    angle1.setLabelVisible(true)
+    setColor(angle1,getRandomColor())
+    var pointD = createMirrorPointOnLine(lineA.start,lineA.end,'D')
+    var angle2 = new Angle(lineB.end,pointC,pointD,'angle2')
+    angle2.draw()
+    angle2.setCaption('\u03B1')
+    angle2.setLabelVisible(true)
+    setColor(angle2,'red')
+
+    /*init layout and ruler*/
+    var center = await setCoordSystem(importantPoints,3)
+    app.setCoords('G',center[0],center[1])
+    app.setGridVisible(false)
+    app.setAxesVisible(false)
+    app.setOnTheFlyPointCreationActive(false)
+    
+    /*calculate solutions*/
+    var sol = 180-angleDiff1 
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['geometry','angle'],
+        difficulty : ['easy'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'puzzle',
+        question : app.getBase64(),
+        questionText : "Bestimme den Winkel $$\alpha$$.",
+        scope : {
+            '\\alpha':{sol:sol,unit:"°"}
+        },
+    }
+    return puzzleData
+}
+
+
+
+
 

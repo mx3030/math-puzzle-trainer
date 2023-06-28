@@ -38,6 +38,10 @@ function shuffleArray(array) {
     return array;
 }
 
+export async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /*dev urls*/
 export var gameURL = "/main/game/game.html"
 export var puzzleGeneratorURL = "/puzzleGenerator/puzzleGenerator_v2.html"
