@@ -42,6 +42,10 @@ export function displayLayoutMain(puzzleData,game=false,puzzleNumber=null){
         var sol = puzzleData.sol
         var scope = puzzleData.scope
         displayEq(leftNode,rightNode,sol,scope,[false,true],game,puzzleNumber)
+    } else if(func=='genPercentileCalc'){
+        var node = JSON.parse(puzzleData.node,math.reviver)
+        var sol = puzzleData.sol
+        displayPercentileCalc(node,sol,game,puzzleNumber)
     }
 }
 
@@ -354,5 +358,88 @@ export function randomEq(string,min,max,vars=['x','y','z']){
     var temp = genEq(string,min,max,true,vars)
     displayEq(temp[0],temp[1],temp[2])
 }
+
+/*----------------------------------------------------------------------------------------------------*/
+/*--------------------------------------percentile----------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------*/
+export function displayPercentileCalc(node,sol,game=false,puzzleNumber=null){
+    var fontSize = getFontSize()    
+    var problemArea = $('#algebra-problem-area')
+
+    /*get latex from node*/
+    var latexString = node.toTex({handler:myLatexHandler})
+
+    /*generate question area*/
+    var questionArea = $('<div>')
+    .addClass('d-flex justify-content-center')
+    .attr('id','question-area')
+    .css('font-size',fontSize)
+    problemArea.append(questionArea)
+    var question = $('<span>')
+    .addClass('mb-5 align-self-center')
+    .attr('id','question')
+    .css('font-size',fontSize)
+    questionArea.append(question)
+    var staticField = MQ.StaticMath(document.getElementById('question'))
+    staticField.latex(latexString)
+
+    /*generate answer area*/
+    var answerArea = $('<div>')
+    .addClass('d-flex flex-row justify-content-center')
+    .attr('id','answer-area')
+    .css('font-size',fontSize)
+    problemArea.append(answerArea)
+    var equalSign = $('<span>')
+    .addClass('mt-5 align-self-center')
+    .attr('id','equal-sign')
+    .css('font-size','50px')
+    answerArea.append(equalSign)
+    MQ.StaticMath(document.getElementById('equal-sign')).latex('=')
+
+    var answer = $('<span>')
+    .addClass('mt-5 align-self-center')
+    .attr('id','answer')
+    .css('font-size',fontSize) 
+    answerArea.append(answer)
+    var mq = MQ.MathField(document.getElementById('answer'),{
+        handlers: {
+            enter: function() {
+                var check = checkPercentileCalc(mq,sol)
+                console.log(check)
+                /*this is the connection to game code*/
+                if(game==true){
+                    loadPuzzle(puzzleNumber+1)
+                    updateInfos(puzzleNumber,check)
+                }
+            }
+        }
+    })
+    mq.focus()
+}
+
+function checkPercentileCalc(mq,sol){
+    /*TODO: only one solution and every possible answer is tested with evaluation in the end*/
+    var answerString = mq.text()
+    var answerNode = math.parse(answerString)
+    answerNode.forEach(function(node,path,parent){
+        if(node.type=='OperatorNode' && node.op!='/'){
+            return false
+        }
+    })
+    for(var i=0;i<sol.length;i++){
+        /*check if plain text String matches evaluation*/
+        if(answerString==sol[i]) return true;
+        /*check if string matches if converted to fraction*/
+        else if(math.format(math.fraction(answerNode.evaluate()),{fraction:'ratio'})==sol[i]) return true;
+        /*check if string matches if special format given*/
+        /*only needed if sol[2] is given but for now disabled*/
+        else if(mq.latex().replace(/\\ /g,'')==sol[i]) return true;
+    } 
+
+    /*check if answer is correct by eval but not fully simplified*/
+    if(answerNode.evaluate()==sol[0]) console.log("nicht vereinfacht")
+        return false
+}
+
 
 

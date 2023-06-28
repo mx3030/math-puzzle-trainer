@@ -1,3 +1,5 @@
+import {roundToTens} from '../../../main/helper.js'
+
 /*math js toTex and toString handler */
 export const myLatexHandler = {
     'myDiv':function(node,options){
@@ -13,7 +15,7 @@ export const myLatexHandler = {
         return node.args[0].toTex(options)+ '\\cdot' + node.args[1].toTex(options)
     },
     'myPercent':function(node,options){
-        return node.args[0].toTex(options)+'\\% \,\,\\text{von}\,\,'+node.args[1].toTex(options)+'\,\,\\text{'+node.args[2].toTex(options)+'}'
+        return node.args[0].toTex(options)+'\\% \\ \\ \\text{von} \\ \\ '+node.args[1].toTex(options)
     }
 }
 
@@ -47,6 +49,7 @@ export function genCalcMain(puzzleData){
     var useSpecialSymbols = puzzleData.useSpecialSymbols
     var max = puzzleData.max
     var min = puzzleData.min
+    var range = puzzleData.range
     if(func=="genCalc"){
         var [node,sol] = genCalc(string,min,max)
         /*change and add new puzzleData entrys*/
@@ -62,6 +65,12 @@ export function genCalcMain(puzzleData){
         puzzleData.leftNode = JSON.stringify(leftNode,math.replacer)
         puzzleData.rightNode = JSON.stringify(rightNode,math.replacer)
         puzzleData.scope = scope
+    } else if(func=='genPercentileCalc'){
+        var [node,sol] = genPercentileCalc(string,range)
+        /*change and add new puzzleData entrys*/
+        puzzleData.node = JSON.stringify(node,math.replacer)
+        puzzleData.sol = sol
+        console.log(sol)
     }
     puzzleData.form = 'puzzle'
     return puzzleData
@@ -278,6 +287,36 @@ export function genEq(string,min,max,useSpecialSymbols=true,vars=['x']){
 /*------------------------------------------percentile------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------*/
 
-export function genPercentileCalc(string,percentile,whole){
-
+export function genPercentileCalc(string,range){
+    var questionString = string;
+    var questionNode = math.parse(questionString)
+    var randomQuestionNode = questionNode.transform(function(node,path,parent){
+        if(node.isSymbolNode && node.name.length==1){
+            var randomInt = math.randomInt(range[node.name].min,range[node.name].max)
+            while(randomInt==0){
+                randomInt=math.randomInt(range[node.name].min,range[node.name].max)
+            }
+            randomInt = roundToTens(randomInt)
+            return new math.ConstantNode(randomInt)
+        } else {
+            return node
+        }
+    })
+    return [randomQuestionNode,genPercentileCalcSol(randomQuestionNode)]
 }
+
+function genPercentileCalcSol(node){
+    var sol = []
+    var temp = node.toString({handler:myStringHandler})
+    var temp2 = math.parse(temp).evaluate()
+    var temp3 = math.fraction(temp2)
+    var temp4 = math.format(temp3,{fraction:'ratio'})
+    var temp5 = temp3.toLatex({excludeWhole:true})
+    sol.push(temp2)
+    sol.push(temp4)
+    /*dont allow this solution because some situations are very easy*/
+    //sol.push(temp5)
+    //console.log(sol)
+    return sol
+}
+

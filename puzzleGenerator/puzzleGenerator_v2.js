@@ -175,6 +175,7 @@ function createCalcArraysDropdownMenu(puzzles){
         })
         arrayContainer.append(dropdownElement)
     }
+    $('#file-arrays').trigger('change')
 }
 
 $('#file-arrays').on('change',function(){

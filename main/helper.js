@@ -42,6 +42,10 @@ export async function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+export function roundToTens(number) {
+  return Math.round(number / 10) * 10;
+}
+
 /*dev urls*/
 export var gameURL = "/main/game/game.html"
 export var puzzleGeneratorURL = "/puzzleGenerator/puzzleGenerator_v2.html"
