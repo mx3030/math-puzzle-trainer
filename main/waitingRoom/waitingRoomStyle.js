@@ -7,6 +7,7 @@ window.onload = async function(){
     var schoolClass = localStorage.getItem('schoolClass')
     await setClassLayout(schoolClass)
     await getTopicList(schoolClass)
+    displayTopicsList()
     setModeButtonsBehaviour() 
     setTimeButtonsBehaviour() 
 }
@@ -125,7 +126,14 @@ async function getTopicList(schoolClass){
     /*get array of puzzle files in puzzles folder from github*/
     /*TODO: faster solution for local dev*/
     var topics = await getGithubDirFolders(owner,repo,path)
-    console.log(topics)
+    var topicsList=[]
+    for(var i=0;i<topics.length;i++){
+        var topicsStringSplit = topics[i].split('/')
+        topicsList.push(topicsStringSplit.pop())
+    }
+    console.log(topicsList)
 }
 
+export function displayTopicsList(){
 
+}

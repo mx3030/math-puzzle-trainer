@@ -1,4 +1,4 @@
-export async function getGithubFiles(owner, repo, path = '') {
+export async function getPuzzleFiles(owner, repo, path = '') {
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -8,9 +8,9 @@ export async function getGithubFiles(owner, repo, path = '') {
 
         for (const item of data) {
             if (item.type === 'file') {
-                files.push(item.path);
+                if(item.name!='tags.js') files.push(item.path);
             } else if (item.type === 'dir') {
-                const subFiles = await getGithubFiles(owner, repo, item.path);
+                const subFiles = await getPuzzleFiles(owner, repo, item.path);
                 files.push(...subFiles);
             }
         }
