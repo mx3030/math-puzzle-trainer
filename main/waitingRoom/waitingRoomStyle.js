@@ -3,11 +3,11 @@ import { getGithubDirFolders } from "../../puzzleGenerator/helper/githubHelper.j
 
 window.onload = async function(){
     if(github==true) showPuzzleGenerator(false)
-    else showPuzzleGenerator(true)
+        else showPuzzleGenerator(true)
     var schoolClass = localStorage.getItem('schoolClass')
     await setClassLayout(schoolClass)
-    await getTopicList(schoolClass)
-    displayTopicsList()
+    var topicsList = await getTopicList(schoolClass)
+    displayTopicsList(schoolClass,topicsList)
     setModeButtonsBehaviour() 
     setTimeButtonsBehaviour() 
 }
@@ -131,9 +131,43 @@ async function getTopicList(schoolClass){
         var topicsStringSplit = topics[i].split('/')
         topicsList.push(topicsStringSplit.pop())
     }
-    console.log(topicsList)
+    return topicsList
 }
 
-export function displayTopicsList(){
+function displayTopicsList(schoolClass,topicsList){
+    return import('../../puzzles/'+schoolClass+'/tags.js')
+    .then(module => {
+        var topicTags = module.tags
+        for(var i=0;i<topicsList.length;i++){
+            createTopicElement(topicsList[i],i,topicTags[topicsList[i]])
+        }
+    })
+    .catch(error => {
+        console.error('error loading tags',error)
+    })
+}
 
+function createTopicElement(name,number,tags){
+    // Create the li element
+    var li = $('<li>').addClass('list-group-item rounded-0 border border-dark');
+    if(number!=0){
+        li.addClass('border-top-0')
+    }
+
+    // Create the input element
+    var input = $('<input>').addClass('form-check-input me-1 topicCheck')
+    .attr('type', 'checkbox')
+    .attr('value', tags)
+    .attr('id', 'topic'+number);
+
+    // Create the label element
+    var label = $('<label>').addClass('form-check-label stretched-link')
+    .attr('for', 'topic'+number)
+    .text(name);
+
+    // Append the input and label elements to the li element
+    li.append(input, label);
+    
+    // Append the li element to the desired parent container
+    $('#topics').append(li);
 }
