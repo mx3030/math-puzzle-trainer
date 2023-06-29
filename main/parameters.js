@@ -18,6 +18,7 @@ export var appletSize = {
 }
 
 export var template = {
+    start:'/puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/clean.ggb',
     geo:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/geo.ggb',
     geo64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/base64/geo.base64',
     clean:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/clean.ggb',

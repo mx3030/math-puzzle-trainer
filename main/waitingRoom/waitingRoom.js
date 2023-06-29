@@ -76,7 +76,7 @@ function getUserInput(){
         limit: limit,
         topics: topics
     }
-    console.log(userInput)
+    //console.log(userInput)
     return userInput
 }
 
@@ -145,7 +145,8 @@ export async function getPuzzleSet(userInput){
     var topics = userInput.topics
     var difficulty = userInput.difficulty
     var tagKeys = await getTagKeys(schoolClass,topics,difficulty)
-    var [puzzleSet,pathToTemp] = await createPuzzleSet(tagKeys,userInput.limit)
+    if(difficulty=='mix') var [puzzleSet,pathToTemp] = await createPuzzleSetMix(tagKeys,userInput.limit)
+    else var [puzzleSet,pathToTemp] = await createPuzzleSet(tagKeys,userInput.limit)
     return [puzzleSet,pathToTemp]
 }
 
@@ -164,7 +165,6 @@ async function getTagKeys(schoolClass,topics,difficulty){
 
 async function getTagKeysDifficulty(schoolClass,topics,difficulty){
     /*get all Tag Keys for one specific difficulty but multiple topics*/
-    console.log(topics)
     var tagKeys = []
     for(var i=0;i<topics.length;i++){
         var tagKeysTopic = await getTagKeysTopic(schoolClass,topics[i],difficulty)

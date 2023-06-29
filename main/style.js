@@ -3,7 +3,7 @@ import {appletSize,template,toolbar,injectGeoGebraApplet} from '../main/paramete
 window.addEventListener('load',async function(){
     breakpoint=await getCurrentBreakpoint()
     setProblemArea(breakpoint)
-    injectGeoGebraApplet(breakpoint,toolbar.simple,template.clean)
+    injectGeoGebraApplet(breakpoint,toolbar.simple,template.start)
 })
 
 export var breakpoint 

@@ -30,6 +30,9 @@ export function displayLayoutMain(puzzleData,game=false,puzzleNumber=null){
     if(func=="genCalc"){
         var node = JSON.parse(puzzleData.node,math.reviver)
         var sol = puzzleData.sol
+        /*if not simplified fraction is accepted, remove element for checking from solution array*/
+        /*TODO: will be a problem, if solution also accepts different layout*/
+        if(puzzleData.simplify==false) sol.pop()
         displayCalc(node,sol,game,puzzleNumber)
     } else if(func=="genEqEasy"){
         var leftNode = JSON.parse(puzzleData.leftNode.math.reviver)
@@ -95,6 +98,7 @@ export function displayCalc(node,sol,game=false,puzzleNumber=null){
         handlers: {
             enter: function() {
                 var check = checkCalc(mq,sol)
+                console.log(check)
                 /*this is the connection to game code*/
                 if(game==true){
                     loadPuzzle(puzzleNumber+1)
@@ -115,19 +119,30 @@ function checkCalc(mq,sol){
             return false
         }
     })
-    for(var i=0;i<sol.length;i++){
-        /*check if plain text String matches evaluation*/
-        if(answerString==sol[i]) return true;
-        /*check if string matches if converted to fraction*/
-        else if(math.format(math.fraction(answerNode.evaluate()),{fraction:'ratio'})==sol[i]) return true;
-        /*check if string matches if special format given*/
-        /*only needed if sol[2] is given but for now disabled*/
-        else if(mq.latex().replace(/\\ /g,'')==sol[i]) return true;
-    } 
+    /*TODO: this can be done better 100%*/
 
-    /*check if answer is correct by eval but not fully simplified*/
-    if(answerNode.evaluate()==sol[0]) console.log("nicht vereinfacht")
-        return false
+    /*check if plain number matches*/
+    if(answerString==sol[0]){
+        return true
+    }
+    /*check if solution is correct if fraction is supplied*/
+    else if(math.format(math.fraction(answerNode.evaluate()),{fraction:'ratio'})==sol[1]){
+        /*in this case fraction is correct, but maybe only because it was evaluated before*/
+        /*check if latex representations match*/
+        /*if this part is disabled, a fraction as solution is correct if not simplified*/
+        if(sol.length==2) return true
+        if(mq.latex()==sol[3]) return true;
+        else{
+            console.log(mq.latex(),sol[2])
+            console.log("nicht vereinfacht")
+            return false
+        }
+    /*check if string matches if special format given*/
+    /*only possible if sol[2] is given but for now disabled*/
+    //else if(mq.latex().replace(/\\ /g,'')==sol[2]){
+        //return true
+    //}
+    } else return false  
 }
 
 /*----------------------------------------------------------------------------------------------------*/
@@ -228,7 +243,7 @@ function checkEqEasy(mqFieldsEqEasy,scope,leftNode,sol,id){
         answerString = nerdamer.convertFromLaTeX(answerLatex).toString()
         answerNode = math.parse(answerString)
         var answer = answerNode.evaluate()
-        console.log(answer)
+        //console.log(answer)
         newScope[scopeVars[i]]=answer
 
         /*focus next mq field*/

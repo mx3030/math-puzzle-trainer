@@ -70,7 +70,7 @@ export function genCalcMain(puzzleData){
         /*change and add new puzzleData entrys*/
         puzzleData.node = JSON.stringify(node,math.replacer)
         puzzleData.sol = sol
-        console.log(sol)
+        //console.log(sol)
     }
     puzzleData.form = 'puzzle'
     return puzzleData
@@ -110,10 +110,13 @@ function genCalcSol(node){
     var temp3 = math.fraction(temp2)
     var temp4 = math.format(temp3,{fraction:'ratio'})
     var temp5 = temp3.toLatex({excludeWhole:true})
+    var temp6 = temp3.toLatex()
     sol.push(temp2)
     sol.push(temp4)
     /*dont allow this solution because some situations are very easy*/
-    //sol.push(temp5)
+    sol.push(temp5)
+    /*for checking if solution is simplified*/
+    sol.push(temp6)
     //console.log(sol)
     return sol
 }

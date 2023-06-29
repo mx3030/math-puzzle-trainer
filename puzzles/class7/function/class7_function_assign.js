@@ -24,7 +24,7 @@ export async function class7_easy_function_assign_1(){
     /*create data for upload*/
     var puzzleData = {
         schoolClass : ['class7'],
-        topics : ['functions','linear'],
+        topics : ['function','linear'],
         difficulty : ['easy'],
         layout : 'geogebra',
         ruler : false,
