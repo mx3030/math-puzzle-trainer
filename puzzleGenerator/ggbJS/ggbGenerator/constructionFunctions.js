@@ -3,7 +3,7 @@ import {breakpoint} from '../../../main/style.js'
 import {delay,generateRandomNumberWithStep} from '../../../main/helper.js'
 import {Point,Segment,Line,Angle} from '../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
 import {Triangle,Pgramm,Polygon,Rectangle} from '../../../puzzleGenerator/ggbJS/ggbGenerator/shapes.js'
-import {toRad} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/objectFunctions.js'
+import {toRad} from '../../../puzzleGenerator/ggbJS/ggbGenerator/objectFunctions.js'
 
 export async function startPuzzleConstructionMode(templateFile,toolbarString){
     /*inject geogebra applet with algebra window*/
