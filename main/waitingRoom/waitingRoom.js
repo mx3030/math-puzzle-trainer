@@ -2,9 +2,18 @@ import { ref, set, get, update,child, query, orderByChild, startAt, limitToLast,
 import { db, firebaseConfig } from "../../main/db.js"
 import { maxRandom,hasTrailingSpaces, containsSpecialCharacters, isNumeric, containsElements, gameURL } from "../../main/helper.js"
 import { genCalcMain } from "../../puzzleGenerator/calc/calcGenerator.js"
+import { puzzleGeneratorURL } from "../../main/helper.js"
+
 
 /*get school class from start page*/
 export var schoolClass = localStorage.getItem('schoolClass')
+
+$('#puzzleGenerator-button').on('click',openPuzzleGenerator)
+function openPuzzleGenerator(){
+    //var url = "/puzzleGenerator/puzzleGenerator.html"
+    var url = puzzleGeneratorURL
+    window.location.href=url
+}
 
 /*----------------------------------------------------------------------------------------------------*/
 /*----------------------------------------------HOST--------------------------------------------------*/
@@ -64,7 +73,7 @@ function getUserInput(){
     var playerName=$('#name-input').val()
     playerName = playerName.trim()
     if(mode=='Duell') var roomNumber=$('#room-input').val()
-    else var roomNumber = math.randomInt(100000,200000).toString()
+        else var roomNumber = math.randomInt(100000,200000).toString()
 
     var userInput = {
         schoolClass : schoolClass,
@@ -127,10 +136,10 @@ async function checkCreateInput(userInput){
 export async function deleteTemps(tempPath){
     /*delete previous temps node from room*/
     try{
-    var root = ref(db)
-    var temps = child(root,'temps')
-    var tempRef = child(temps,tempPath)
-    await remove(tempRef)
+        var root = ref(db)
+        var temps = child(root,'temps')
+        var tempRef = child(temps,tempPath)
+        await remove(tempRef)
     } catch (error){
         console.log("no temp")
     }
@@ -147,7 +156,7 @@ export async function getPuzzleSet(userInput){
     var tagKeys = await getTagKeys(schoolClass,topics,difficulty)
     console.log(tagKeys)
     if(difficulty=='mix') var [puzzleSet,pathToTemp] = await createPuzzleSetMix(tagKeys,userInput.limit)
-    else var [puzzleSet,pathToTemp] = await createPuzzleSet(tagKeys,userInput.limit)
+        else var [puzzleSet,pathToTemp] = await createPuzzleSet(tagKeys,userInput.limit)
     return [puzzleSet,pathToTemp]
 }
 

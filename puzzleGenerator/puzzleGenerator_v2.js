@@ -15,10 +15,11 @@ export var calcPuzzles = {}
 
 /*init puzzle modules and dropdown menu*/
 window.addEventListener('load',async function(){
+    var schoolClass = localStorage.getItem('schoolClass')
     /*github information*/
     const owner = 'mx3030';
     const repo = 'math-puzzle-trainer';
-    const path = 'puzzles';
+    const path = 'puzzles/'+schoolClass;
 
     /*get array of puzzle files in puzzles folder from github*/
     /*TODO: faster solution for local dev*/

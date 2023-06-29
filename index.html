@@ -27,15 +27,8 @@
                 </div>
             </div>
         </div>
-        <div id="puzzleGenerator-container" class="position-absolute bottom-0 end-0">
-            <button id="puzzleGenerator-button" type="button" class="btn border border-dark rounded-0 pt-3">
-                <span class="material-symbols-outlined" style="font-size:60px">
-                    construction
-                </span>
-            </button>
-        </div>
         <script type="module" charset="utf-8">
-            import {waitingRoomURL, puzzleGeneratorURL} from './main/helper.js'
+            import {waitingRoomURL } from './main/helper.js'
             $('#class5-button').on('click',function(){
                 openWaitingRoom(5)
             })
@@ -54,14 +47,7 @@
                 var url = waitingRoomURL
                 localStorage.setItem('schoolClass',schoolClass)
                 window.location.href=url
-            }
-
-            $('#puzzleGenerator-button').on('click',openPuzzleGenerator)
-            function openPuzzleGenerator(){
-                //var url = "/puzzleGenerator/puzzleGenerator.html"
-                var url = puzzleGeneratorURL
-                window.location.href=url
-            }
+            }        
         </script>
     </body>
 </html>

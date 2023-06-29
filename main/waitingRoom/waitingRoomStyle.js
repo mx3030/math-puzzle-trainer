@@ -1,8 +1,20 @@
+import { github, puzzleGeneratorURL } from "../../main/helper.js"
+
 window.onload = async function(){
+    if(github==true) showPuzzleGenerator(false)
+    else showPuzzleGenerator(true)
     var schoolClass = localStorage.getItem('schoolClass')
     await setClassLayout(schoolClass)
     setModeButtonsBehaviour() 
     setTimeButtonsBehaviour() 
+}
+
+function showPuzzleGenerator(visible){
+    if(visible==true){
+        $('#puzzleGenerator-container').removeClass('d-none')
+    } else { 
+        $('#puzzleGenerator-container').addClass('d-none')
+    }
 }
 
 async function setClassLayout(schoolClass){ 
