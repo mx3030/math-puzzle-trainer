@@ -1,10 +1,12 @@
 import { github, puzzleGeneratorURL } from "../../main/helper.js"
+import { getGithubDirFolders } from "../../puzzleGenerator/helper/githubHelper.js"
 
 window.onload = async function(){
     if(github==true) showPuzzleGenerator(false)
     else showPuzzleGenerator(true)
     var schoolClass = localStorage.getItem('schoolClass')
     await setClassLayout(schoolClass)
+    await getTopicList(schoolClass)
     setModeButtonsBehaviour() 
     setTimeButtonsBehaviour() 
 }
@@ -112,6 +114,18 @@ function setTimeButtonsBehaviour(){
             $('#limit-container').addClass('d-none')
         }
     })
+}
+
+async function getTopicList(schoolClass){
+    /*github information*/
+    const owner = 'mx3030';
+    const repo = 'math-puzzle-trainer';
+    const path = 'puzzles/'+schoolClass;
+
+    /*get array of puzzle files in puzzles folder from github*/
+    /*TODO: faster solution for local dev*/
+    var topics = await getGithubDirFolders(owner,repo,path)
+    console.log(topics)
 }
 
 

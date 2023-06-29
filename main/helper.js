@@ -1,5 +1,5 @@
 /*----------------------------switchToGithub------------------------*/
-export const github = true
+export const github = false
 /*------------------------------------------------------------------*/
 
 export const maxRandom = 100000
