@@ -96,8 +96,8 @@ export var class7_medium_calc_integer_1=
                 string:'(a+b)-c',
                 vars:['x'],
                 useSpecialSymbols:false,
-                min:-100,
-                max:100,
+                min:-50,
+                max:50,
                 questionText:'Berechne das Ergebnis',
             },
             question4 : {
@@ -111,22 +111,41 @@ export var class7_medium_calc_integer_1=
             },
             question5 : {
                 func:'genCalc',
-                string:'a*b',
-                vars:['x'],
-                useSpecialSymbols:false,
-                min:-20,
-                max:20,
-                questionText:'Berechne das Ergebnis',
-            },
-            question6 : {
-                func:'genCalc',
                 string:'a*(b+c)',
                 vars:['x'],
                 useSpecialSymbols:false,
                 min:-10,
                 max:10,
                 questionText:'Berechne das Ergebnis',
-            }   
+            },
+            question6 : {
+                func:'genCalc',
+                string:'a*b',
+                vars:['x'],
+                useSpecialSymbols:false,
+                min:10,
+                max:20,
+                questionText:'Berechne das Ergebnis',
+            },
+            question7 : {
+                func:'genCalc',
+                string:'-a*b',
+                vars:['x'],
+                useSpecialSymbols:false,
+                min:10,
+                max:20,
+                questionText:'Berechne das Ergebnis',
+            },
+            question7 : {
+                func:'genCalc',
+                string:'-a*(-b)',
+                vars:['x'],
+                useSpecialSymbols:false,
+                min:10,
+                max:20,
+                questionText:'Berechne das Ergebnis',
+            },
+              
         },
     }
 

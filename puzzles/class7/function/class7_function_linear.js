@@ -5,6 +5,7 @@ import {Point,Segment,Line,Angle,importantPoints,resetImportantPoints} from '../
 import {createTwoRandomPointsOnLine,getMaxAbsYCoordValue,colorMap,setColor,getRandomColor,setPointStyle,createRandomPolyFunctionString,createRandomLinearFunctionString} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
 
 export async function class7_easy_function_linear_1(){
+    /*draw horizontal functions*/
     resetImportantPoints()
     await ggbSetBase64(template.cleanFreeAxes64);
     //await startPuzzleConstructionMode(template.cleanWithInput,false)
@@ -83,6 +84,80 @@ export async function class7_easy_function_linear_2(){
         questionText : "Welche lineare Funktion ist dargestellt?",
         scope : {
             'y':{sol:sol,unit:""}
+        },
+    }
+    return puzzleData
+}
+
+export async function class7_easy_function_linear_3(){
+    /*setup points of random functions throuch (0,0)*/
+    resetImportantPoints()
+    await ggbSetBase64(template.cleanFreeAxes64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
+
+    /*create random problem*/
+    var point = new Point(math.randomInt(-5,5),math.randomInt(-5,5))
+    point.draw()
+    setColor(point,'dodgerblue')
+    setPointStyle(point,6,0)
+
+    /*init layout and ruler*/
+    var maxYCoord = getMaxAbsYCoordValue(importantPoints)
+    await positionCoordSystem(maxYCoord*1.5,-(maxYCoord)*0.2)
+    app.setOnTheFlyPointCreationActive(false)
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['function','linear'],
+        difficulty : ['easy'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'drawInput',
+        question : app.getBase64(),
+        questionText : "Bestimme eine lineare Funktion durch den Punkt.",
+        scope : {
+            'y':{sol:[point.x,point.y],unit:"",checker:'pointOnFunction'}
+        },
+    }
+    return puzzleData
+}
+
+export async function class7_easy_function_linear_4(){
+    /*setup points of random functions throuch (0,0)*/
+    resetImportantPoints()
+    await ggbSetBase64(template.cleanFreeAxes64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
+
+    /*create random problem*/
+    /*create array with 10 random points*/
+    var pointsList = []
+    for(var i=0;i<10;i++){
+        var point = new Point(math.randomInt(-10,10),math.randomInt(-10,10))
+        point.draw()
+        pointsList.push([point.x,point.y])
+        setColor(point,'dodgerblue')
+        setPointStyle(point,6,0)
+    }
+    /*init layout and ruler*/
+    var maxYCoord = getMaxAbsYCoordValue(importantPoints)
+    await positionCoordSystem(maxYCoord*1.5,-(maxYCoord)*0.2)
+    app.setOnTheFlyPointCreationActive(false)
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['function','linear'],
+        difficulty : ['easy'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'drawInput',
+        question : app.getBase64(),
+        questionText : "Bestimme eine lineare Funtion durch 2 beliebige Punkte.",
+        scope : {
+            'y':{sol:pointsList,unit:"",checker:'pointsOnFunction'}
         },
     }
     return puzzleData
@@ -208,6 +283,8 @@ export async function class7_medium_function_linear_3(){
     }
     return puzzleData
 }
+
+
 
 export async function class7_hard_function_linear_1(){
     resetImportantPoints()

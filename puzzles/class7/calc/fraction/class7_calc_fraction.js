@@ -42,6 +42,15 @@ export var class7_easy_calc_fraction=
                 min:1,
                 max:5,
                 questionText:'Berechne und kürze das Ergebnis.'
+            },
+            question5 : {
+                func:'genCalc',
+                string:'a/b-c/d',
+                vars:['x'],
+                useSpecialSymbols:false,
+                min:1,
+                max:5,
+                questionText:'Berechne und kürze das Ergebnis.'
             }
         },
     }
@@ -85,6 +94,15 @@ export var class7_medium_calc_fraction=
             question4 : {
                 func:'genCalc',
                 string:'a/b+c/d',
+                vars:['x'],
+                useSpecialSymbols:false,
+                min:-5,
+                max:5,
+                questionText:'Berechne und kürze das Ergebnis.'
+            },
+            question5 : {
+                func:'genCalc',
+                string:'a/b-c/d',
                 vars:['x'],
                 useSpecialSymbols:false,
                 min:-5,
@@ -138,7 +156,17 @@ export var class7_hard_calc_fraction=
                 min:-5,
                 max:5,
                 questionText:'Berechne und kürze das Ergebnis.'
+            },
+            question5 : {
+                func:'genCalc',
+                string:'a/b-c/d',
+                vars:['x'],
+                useSpecialSymbols:false,
+                min:-10,
+                max:10,
+                questionText:'Berechne und kürze das Ergebnis.'
             }
+
         },
     }
 

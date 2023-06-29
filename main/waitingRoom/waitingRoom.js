@@ -1,6 +1,6 @@
 import { ref, set, get, update,child, query, orderByChild, startAt, limitToLast, limitToFirst, orderByValue, orderByKey, push, remove } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
 import { db, firebaseConfig } from "../../main/db.js"
-import { hasTrailingSpaces, containsSpecialCharacters, isNumeric, containsElements, gameURL } from "../../main/helper.js"
+import { maxRandom,hasTrailingSpaces, containsSpecialCharacters, isNumeric, containsElements, gameURL } from "../../main/helper.js"
 import { genCalcMain } from "../../puzzleGenerator/calc/calcGenerator.js"
 
 /*get school class from start page*/
@@ -145,6 +145,7 @@ export async function getPuzzleSet(userInput){
     var topics = userInput.topics
     var difficulty = userInput.difficulty
     var tagKeys = await getTagKeys(schoolClass,topics,difficulty)
+    console.log(tagKeys)
     if(difficulty=='mix') var [puzzleSet,pathToTemp] = await createPuzzleSetMix(tagKeys,userInput.limit)
     else var [puzzleSet,pathToTemp] = await createPuzzleSet(tagKeys,userInput.limit)
     return [puzzleSet,pathToTemp]
@@ -192,11 +193,11 @@ async function getRandomPuzzle(tagKey){
     /*extract one specific puzzle or template from one tag key under puzzles node*/
     var puzzlesRef = ref(db,'puzzles')
     var tagRef = child(puzzlesRef,tagKey)
-    var randomQuery = await query(tagRef,orderByChild('random'),startAt(math.randomInt(1,10000)),limitToFirst(1))
+    var randomQuery = await query(tagRef,orderByChild('random'),startAt(math.randomInt(1,maxRandom)),limitToFirst(1))
     var snapshot = await get(randomQuery)
     var randomPuzzle = snapshot.val()
     while(randomPuzzle==null){
-        randomQuery = await query(tagRef,orderByChild('random'),startAt(math.randomInt(1,10000)),limitToFirst(1))
+        randomQuery = await query(tagRef,orderByChild('random'),startAt(math.randomInt(1,maxRandom)),limitToFirst(1))
         snapshot = await get(randomQuery)
         randomPuzzle = snapshot.val()
     }
@@ -222,7 +223,7 @@ async function createPuzzleSet(tagKeys,limit,pathToTemp=null){
         /*and dont make to many calls to firebase?*/
         /*for host!!! save puzzles completly in local storage, so host dont need to read from database again*/
         var randomPuzzle = await getRandomPuzzle(tagKeys[i%tagKeys.length])
-        if(randomPuzzle.form=='puzzle'){
+        if(randomPuzzle.form!='template'){
             puzzleSet.add(randomPuzzle.path)  
         } else if(randomPuzzle.form=="template"){
             var tempPuzzleData = genCalcMain(randomPuzzle)

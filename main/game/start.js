@@ -2,7 +2,7 @@ import { ref, set, get, update, onValue, onDisconnect, child} from "https://www.
 import { db } from "../../main/db.js"
 import {updateWaitingStatus, startTimer, updateWaitingStatusForSinglePlayer} from "../../main/game/wait.js"
 import {startGame} from "../../main/game/game.js"
-import {displayProgressBars} from "../../main/game/gameStyle.js"
+import {displayProgressBars,setQuestionTextFontSize} from "../../main/game/gameStyle.js"
 import {deleteTemps} from '../../main/waitingRoom/waitingRoom.js'
 
 /*values player need to know on start*/
@@ -32,6 +32,7 @@ window.addEventListener('load',async function(){
     mode = saved.mode
     userInput = saved.userInput
     schoolClass = saved.schoolClass
+    setQuestionTextFontSize()
     await startMode(mode,roomNumber,playerName)
 })
 

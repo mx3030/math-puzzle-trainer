@@ -1,6 +1,8 @@
 import {mode} from '../../main/game/start.js'
+import {breakpoint} from "../../main/style.js"
 
-var controlElementsDuell = ['control-bar-time','control-bar-points','control-bar-aufgabe','control-bar-history','control-bar-bestenliste','control-bar-ranking']
+//var controlElementsDuell = ['control-bar-time','control-bar-points','control-bar-aufgabe','control-bar-history','control-bar-bestenliste','control-bar-ranking']
+var controlElementsDuell = ['control-bar-time','control-bar-points','control-bar-aufgabe','control-bar-history']
 var controlElementsRush = ['control-bar-points','control-bar-aufgabe','control-bar-newGame']
 var controlElementsTraining = ['control-bar-aufgabe','control-bar-newGame']
 
@@ -71,7 +73,9 @@ function showProgressbar(player,color){
     /*or create progressbar for every player on connection and set d-none on disconnect*/
     var progressbarID = player+'-points-bar'
     if ($('#'+progressbarID).is('*')) {
-        //console.log("change existing")
+        /*deletion seems to be necessary, otherwise same color twice on game host*/
+        $('#'+progressbarID).remove()
+        createProgressbar(player,color)
     } else {
         //console.log("create new one")
         createProgressbar(player,color)
@@ -95,6 +99,23 @@ function createProgressbar(player,color){
     var user_points_area = $('#user-points')
     user_points_area.append(element)
     return element
+}
+
+export function getFontSizeForQuestionText(){
+    /*get variable styling*/
+    /*TODO write separate function that checks question span width and matches font size accordingly*/
+    var fontSize
+    if(breakpoint=='xl'){
+        fontSize='40px'
+    } else if(breakpoint=='lg'){
+        fontSize='20px'
+    }
+    return fontSize
+}
+
+export function setQuestionTextFontSize(){
+    var fontSize = getFontSizeForQuestionText()
+    $('#question-text').css('font-size',fontSize)
 }
 
 

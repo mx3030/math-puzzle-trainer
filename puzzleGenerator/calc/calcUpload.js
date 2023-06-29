@@ -8,7 +8,6 @@ import {genCalcMain} from './calcGenerator.js'
 import {puzzleImports,ggbjsPuzzles,calcPuzzles} from '../../puzzleGenerator/puzzleGenerator_v2.js'
 
 export async function uploadCalcAll(){ 
-    console.log(calcPuzzles)
     for(var path in calcPuzzles){
         /*loop over files in calcPuzzles array*/
         await uploadCalcFile(path)

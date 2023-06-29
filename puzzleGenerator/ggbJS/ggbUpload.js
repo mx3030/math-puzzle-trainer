@@ -1,12 +1,10 @@
 import {db, firebaseConfig} from '../../main/db.js'
 import {ref, get, update, remove, push, child } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js"
 //import * as ggbjsTopicFunctions from '../../puzzleGenerator/ggbJS/ggbPuzzles.js'
-import {areEqual} from '../../main/helper.js'
+import {areEqual,maxRandom} from '../../main/helper.js'
 
 /*puzzleImports contains puzzle modules generated in puzzleGenerator.js*/
 import {puzzleImports,ggbjsPuzzles,calcPuzzles} from '../../puzzleGenerator/puzzleGenerator_v2.js'
-
-export const maxRandom = 10000
 
 export async function uploadGGBJSAll(numberOfPuzzles=10,resetDatabase=false){
     if(resetDatabase==true){

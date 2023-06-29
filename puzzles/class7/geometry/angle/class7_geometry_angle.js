@@ -69,7 +69,7 @@ export async function class7_easy_geometry_angle_1(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -129,7 +129,7 @@ export async function class7_easy_geometry_angle_2(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -199,7 +199,7 @@ export async function class7_easy_geometry_angle_3(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -273,7 +273,7 @@ export async function class7_easy_geometry_angle_4(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -347,7 +347,7 @@ export async function class7_easy_geometry_angle_5(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -421,7 +421,7 @@ export async function class7_easy_geometry_angle_6(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -495,7 +495,7 @@ export async function class7_easy_geometry_angle_7(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -568,7 +568,7 @@ export async function class7_easy_geometry_angle_8(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -641,7 +641,7 @@ export async function class7_easy_geometry_angle_9(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -714,7 +714,7 @@ export async function class7_easy_geometry_angle_10(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -807,7 +807,7 @@ export async function class7_medium_geometry_angle_1(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -899,7 +899,7 @@ export async function class7_medium_geometry_angle_2(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -991,7 +991,7 @@ export async function class7_medium_geometry_angle_3(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },
@@ -1083,7 +1083,7 @@ export async function class7_hard_geometry_angle_1(){
         toolbar : false,
         form : 'puzzle',
         question : app.getBase64(),
-        questionText : "Bestimme den Winkel $$\alpha$$.",
+        questionText : "Bestimme den Winkel $$\\alpha$$.",
         scope : {
             '\\alpha':{sol:sol,unit:"°"}
         },

@@ -1,3 +1,4 @@
+export const maxRandom = 100000
 export function deepCopy(obj) {
     return JSON.parse(JSON.stringify(obj));
 }
