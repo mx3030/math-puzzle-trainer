@@ -1,3 +1,7 @@
+/*----------------------------switchToGithub------------------------*/
+export const github = true
+/*------------------------------------------------------------------*/
+
 export const maxRandom = 100000
 export function deepCopy(obj) {
     return JSON.parse(JSON.stringify(obj));
@@ -40,28 +44,37 @@ function shuffleArray(array) {
 }
 
 export async function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export function roundToTens(number) {
-  return Math.round(number / 10) * 10;
+    return Math.round(number / 10) * 10;
 }
 
 export function generateRandomNumberWithStep(min, max, step) {
-  const range = max - min;
-  const randomSteps = math.randomInt(range / step + 1);  // Generate random number of steps
-  const randomNumber = min + randomSteps * step;  // Calculate the random number within the specified step
+    const range = max - min;
+    const randomSteps = math.randomInt(range / step + 1);  // Generate random number of steps
+    const randomNumber = min + randomSteps * step;  // Calculate the random number within the specified step
 
-  return randomNumber;
+    return randomNumber;
 }
 
-/*dev urls*/
-//export var gameURL = "/main/game/game.html"
-//export var puzzleGeneratorURL = "/puzzleGenerator/puzzleGenerator_v2.html"
-//export var waitingRoomURL = "/main/waitingRoom/waitingRoom.html"
-//export var templatesURL = "/puzzleGenerator/ggbJS/ggbGenerator/templates/templates.html"
-/*github urls*/
-export var gameURL = 'https://mx3030.github.io/math-puzzle-trainer/main/game/game.html'
-export var puzzleGeneratorURL = 'https://mx3030.github.io/math-puzzle-trainer/puzzleGenerator/puzzleGenerator_v2.html'
-export var waitingRoomURL = 'https://mx3030.github.io/math-puzzle-trainer/main/waitingRoom/waitingRoom.html'
-export var templatesURL = 'https://mx3030.github.io/math-puzzle-trainer/puzzleGenerator/ggbJS/ggbGenerator/templates/templates.html'
+export var gameURL 
+export var puzzleGeneratorURL 
+export var waitingRoomURL     
+export var templatesURL 
+if(github==false){
+    /*dev urls*/
+    gameURL = "/main/game/game.html"
+    puzzleGeneratorURL = "/puzzleGenerator/puzzleGenerator_v2.html"
+    waitingRoomURL = "/main/waitingRoom/waitingRoom.html"
+    templatesURL = "/puzzleGenerator/ggbJS/ggbGenerator/templates/templates.html"
+} else {
+    /*github urls*/
+    gameURL = 'https://mx3030.github.io/math-puzzle-trainer/main/game/game.html'
+    puzzleGeneratorURL = 'https://mx3030.github.io/math-puzzle-trainer/puzzleGenerator/puzzleGenerator_v2.html'
+    waitingRoomURL = 'https://mx3030.github.io/math-puzzle-trainer/main/waitingRoom/waitingRoom.html'
+    templatesURL = 'https://mx3030.github.io/math-puzzle-trainer/puzzleGenerator/ggbJS/ggbGenerator/templates/templates.html'
+}
+
+

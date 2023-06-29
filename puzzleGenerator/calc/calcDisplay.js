@@ -433,6 +433,7 @@ export function displayPercentileCalc(node,sol,game=false,puzzleNumber=null){
 }
 
 function checkPercentileCalc(mq,sol){
+    /*TODO: use same style as in updated checkCalc*/
     /*TODO: only one solution and every possible answer is tested with evaluation in the end*/
     var answerString = mq.text()
     var answerNode = math.parse(answerString)

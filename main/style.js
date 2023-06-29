@@ -1,9 +1,11 @@
 import {appletSize,template,toolbar,injectGeoGebraApplet} from '../main/parameters.js'
+import { github } from '../main/helper.js'
 
 window.addEventListener('load',async function(){
     breakpoint=await getCurrentBreakpoint()
     setProblemArea(breakpoint)
-    injectGeoGebraApplet(breakpoint,toolbar.simple,template.github)
+    if(github==true) injectGeoGebraApplet(breakpoint,toolbar.simple,template.github)
+    else injectGeoGebraApplet(breakpoint,toolbar.simple,template.start)
 })
 
 export var breakpoint 

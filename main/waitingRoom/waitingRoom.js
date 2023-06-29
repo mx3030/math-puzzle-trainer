@@ -207,15 +207,14 @@ async function getRandomPuzzle(tagKey){
 async function createPuzzleSet(tagKeys,limit,pathToTemp=null){
     /*loop through all tag keys and save path to puzzle or if template, create puzzle under temps and after that save path*/
     var puzzleSet = new Set()
+    var root = ref(db)
+    var tempsRef = child(root,'temps')
     if(pathToTemp==null){
-        var root = ref(db)
-        var tempsRef = child(root,'temps')
         var tempKey = await push(tempsRef).key
         var pathToTemp = ""+tempKey
         var tempRef = child(tempsRef,tempKey)
-    } else {
-        /*let user pass specific temp path for createPuzzleSetMix*/
-        var tempRef = ref(db,pathToTemp)
+    } else { 
+        var tempRef = child(tempsRef,pathToTemp)
     }
     var i=0
     while(puzzleSet.size<limit){
