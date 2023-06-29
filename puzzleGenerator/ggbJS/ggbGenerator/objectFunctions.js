@@ -12,4 +12,11 @@ export function samePoints(pointA,pointB,round=4){
     else return false
 }
 
+/*same function in constructionFunctions.js but maybe some problems with initialization in shapes.js ???*/
+export function getDistanceBetweenPoints(point1,point2){
+    var deltaX = point1.x-point2.x
+    var deltaY = point1.y-point2.y            
+    var distance = Math.sqrt((deltaX)**2+(deltaY)**2)
+    return distance
+}
 

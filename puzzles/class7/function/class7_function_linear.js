@@ -1,18 +1,17 @@
 import {setCoordSystem,positionCoordSystem} from '../../../../puzzleGenerator/ggbJS/ggbDisplay.js'
 import {ggbSetBase64,template,toolbar} from '../../../../main/parameters.js'
-import {delay} from '../../../../main/helper.js'
+import {delay,generateRandomNumberWithStep} from '../../../../main/helper.js'
 import {Point,Segment,Line,Angle,importantPoints,resetImportantPoints} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
-import {createTwoRandomPointsOnLine,getMaxAbsYCoordValue,setColor,setPointStyle} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
+import {createTwoRandomPointsOnLine,getMaxAbsYCoordValue,colorMap,setColor,getRandomColor,setPointStyle,createRandomPolyFunctionString,createRandomLinearFunctionString} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
 
 export async function class7_easy_function_linear_1(){
-    /*setup points of random functions throuch (0,0)*/
     resetImportantPoints()
     await ggbSetBase64(template.cleanFreeAxes64);
     //await startPuzzleConstructionMode(template.cleanWithInput,false)
 
     /*create random problem*/
-    var gradient = math.randomInt(-5,5)
-    var pointsOnLine = createTwoRandomPointsOnLine(gradient,0,-5,5,1)
+    var yIntersection = math.randomInt(-5,5)
+    var pointsOnLine = createTwoRandomPointsOnLine(0,yIntersection,-5,5,1)
     var point1 = pointsOnLine[0]
     point1.draw()
     setColor(point1,'dodgerblue')
@@ -23,13 +22,15 @@ export async function class7_easy_function_linear_1(){
     setPointStyle(point2,6,0)
 
     /*init layout and ruler*/
-    var maxYCoord = getMaxAbsYCoordValue(importantPoints)
+    var maxYCoord = 5
     await positionCoordSystem(maxYCoord*1.5,-(maxYCoord)*0.2)
+    //app.setCoords('G',center[0],center[1])
+    //app.setGridVisible(false)
+    //app.setAxesVisible(false)
     app.setOnTheFlyPointCreationActive(false)
-    
+
     /*calculate solutions*/
-    if(gradient==0) var sol=point1.y
-    else var sol = gradient+'*x' 
+    var sol=yIntersection 
 
     /*create data for upload*/
     var puzzleData = {
@@ -55,8 +56,47 @@ export async function class7_easy_function_linear_2(){
     //await startPuzzleConstructionMode(template.cleanWithInput,false)
 
     /*create random problem*/
-    var yIntersection = math.randomInt(-5,5)
-    var pointsOnLine = createTwoRandomPointsOnLine(0,yIntersection,-5,5,1)
+    var randomFunctionString = createRandomLinearFunctionString(math.randomInt(-5,5),math.randomInt(-5,5),true)
+    app.evalCommand('f(x)='+randomFunctionString)
+    app.setColor('f',...colorMap[getRandomColor()])
+
+    /*init layout and ruler*/
+    await positionCoordSystem(10)
+    //app.setCoords('G',center[0],center[1])
+    //app.setGridVisible(false)
+    //app.setAxesVisible(false)
+    app.setOnTheFlyPointCreationActive(false)
+
+    /*calculate solutions*/
+    var sol=randomFunctionString 
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['function','linear'],
+        difficulty : ['easy'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'puzzle',
+        question : app.getBase64(),
+        questionText : "Welche lineare Funktion ist dargestellt?",
+        scope : {
+            'y':{sol:sol,unit:""}
+        },
+    }
+    return puzzleData
+}
+
+export async function class7_medium_function_linear_1(){
+    /*setup points of random functions throuch (0,0)*/
+    resetImportantPoints()
+    await ggbSetBase64(template.cleanFreeAxes64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
+
+    /*create random problem*/
+    var gradient = math.randomInt(-5,5)
+    var pointsOnLine = createTwoRandomPointsOnLine(gradient,0,-5,5,1)
     var point1 = pointsOnLine[0]
     point1.draw()
     setColor(point1,'dodgerblue')
@@ -67,21 +107,19 @@ export async function class7_easy_function_linear_2(){
     setPointStyle(point2,6,0)
 
     /*init layout and ruler*/
-    var maxYCoord = 5
+    var maxYCoord = getMaxAbsYCoordValue(importantPoints)
     await positionCoordSystem(maxYCoord*1.5,-(maxYCoord)*0.2)
-    //app.setCoords('G',center[0],center[1])
-    //app.setGridVisible(false)
-    //app.setAxesVisible(false)
     app.setOnTheFlyPointCreationActive(false)
-    
+
     /*calculate solutions*/
-    var sol=yIntersection 
+    if(gradient==0) var sol=point1.y
+    else var sol = gradient+'*x' 
 
     /*create data for upload*/
     var puzzleData = {
         schoolClass : ['class7'],
         topics : ['function','linear'],
-        difficulty : ['easy'],
+        difficulty : ['medium'],
         layout : 'geogebra',
         ruler : false,
         toolbar : false,
@@ -95,7 +133,83 @@ export async function class7_easy_function_linear_2(){
     return puzzleData
 }
 
-export async function class7_medium_function_linear_1(){
+export async function class7_medium_function_linear_2(){
+    resetImportantPoints()
+    await ggbSetBase64(template.cleanFreeAxes64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
+
+    /*create random problem*/
+    var randomFunctionString = createRandomLinearFunctionString(math.randomInt(-10,10),math.randomInt(-10,10),true)
+    app.evalCommand('f(x)='+randomFunctionString)
+    app.setColor('f',...colorMap[getRandomColor()])
+
+    /*init layout and ruler*/
+    await positionCoordSystem(10)
+    //app.setCoords('G',center[0],center[1])
+    //app.setGridVisible(false)
+    //app.setAxesVisible(false)
+    app.setOnTheFlyPointCreationActive(false)
+
+    /*calculate solutions*/
+    var sol=randomFunctionString 
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['function','linear'],
+        difficulty : ['medium'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'puzzle',
+        question : app.getBase64(),
+        questionText : "Welche lineare Funktion ist dargestellt?",
+        scope : {
+            'y':{sol:sol,unit:""}
+        },
+    }
+    return puzzleData
+}
+
+export async function class7_medium_function_linear_3(){
+    resetImportantPoints()
+    await ggbSetBase64(template.cleanFreeAxes64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
+
+    /*create random problem*/
+    var randomFunctionString = createRandomLinearFunctionString(math.randomInt(-5,5),math.randomInt(-5,5),false)
+    app.evalCommand('f(x)='+randomFunctionString)
+    app.setColor('f',...colorMap[getRandomColor()])
+
+    /*init layout and ruler*/
+    await positionCoordSystem(10)
+    //app.setCoords('G',center[0],center[1])
+    //app.setGridVisible(false)
+    //app.setAxesVisible(false)
+    app.setOnTheFlyPointCreationActive(false)
+
+    /*calculate solutions*/
+    var sol=randomFunctionString 
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['function','linear'],
+        difficulty : ['medium'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'puzzle',
+        question : app.getBase64(),
+        questionText : "Welche lineare Funktion ist dargestellt?",
+        scope : {
+            'y':{sol:sol,unit:""}
+        },
+    }
+    return puzzleData
+}
+
+export async function class7_hard_function_linear_1(){
     resetImportantPoints()
     await ggbSetBase64(template.cleanFreeAxes64);
     //await startPuzzleConstructionMode(template.cleanWithInput,false)
@@ -117,7 +231,7 @@ export async function class7_medium_function_linear_1(){
     var maxYCoord = getMaxAbsYCoordValue(importantPoints)
     await positionCoordSystem(maxYCoord*1.5,-(maxYCoord)*0.2)
     app.setOnTheFlyPointCreationActive(false)
-        
+
     /*calculate solutions*/
     var sol=gradient+'*x+'+yIntersection
 
@@ -125,7 +239,7 @@ export async function class7_medium_function_linear_1(){
     var puzzleData = {
         schoolClass : ['class7'],
         topics : ['function','linear'],
-        difficulty : ['medium'],
+        difficulty : ['hard'],
         layout : 'geogebra',
         ruler : false,
         toolbar : false,
@@ -139,5 +253,41 @@ export async function class7_medium_function_linear_1(){
     return puzzleData
 }
 
+export async function class7_hard_function_linear_2(){
+    resetImportantPoints()
+    await ggbSetBase64(template.cleanFreeAxes64);
+    //await startPuzzleConstructionMode(template.cleanWithInput,false)
 
+    /*create random problem*/
+    var randomFunctionString = createRandomLinearFunctionString(generateRandomNumberWithStep(-5,5,0.5),generateRandomNumberWithStep(-5,5,0.5),false)
+    app.evalCommand('f(x)='+randomFunctionString)
+    app.setColor('f',...colorMap[getRandomColor()])
+
+    /*init layout and ruler*/
+    await positionCoordSystem(10)
+    //app.setCoords('G',center[0],center[1])
+    //app.setGridVisible(false)
+    //app.setAxesVisible(false)
+    app.setOnTheFlyPointCreationActive(false)
+
+    /*calculate solutions*/
+    var sol=randomFunctionString 
+
+    /*create data for upload*/
+    var puzzleData = {
+        schoolClass : ['class7'],
+        topics : ['function','linear'],
+        difficulty : ['medium'],
+        layout : 'geogebra',
+        ruler : false,
+        toolbar : false,
+        form : 'puzzle',
+        question : app.getBase64(),
+        questionText : "Welche lineare Funktion ist dargestellt?",
+        scope : {
+            'y':{sol:sol,unit:""}
+        },
+    }
+    return puzzleData
+}
 

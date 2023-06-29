@@ -63,7 +63,8 @@ export function displayLayoutGeogebra(puzzleData,game=false,puzzleNumber=null){
     else $('#geo').addClass('d-none')
     /*show toolbar if needed*/
     if(puzzleData.toolbar!=false){
-        eval(`${appID}.setCustomToolBar(${puzzleData.toolbar})`)
+        /*important: dont miss '' in applet command*/
+        eval(`${appID}.setCustomToolBar('${puzzleData.toolbar}')`)
         eval(`${appID}.showToolBar(true)`)
     } else {
         eval(`${appID}.showToolBar(false)`)

@@ -1,5 +1,5 @@
 import {appID} from '../../../main/parameters.js'
-import {toDeg,toRad,samePoints} from '../../../puzzleGenerator/ggbJS/ggbGenerator/objectFunctions.js'
+import {toDeg,toRad,samePoints,getDistanceBetweenPoints} from '../../../puzzleGenerator/ggbJS/ggbGenerator/objectFunctions.js'
 
 export class ggbObject{
     constructor(name=null,aux=false,id=appID){
@@ -370,5 +370,13 @@ export class Angle extends ggbObject {
         //this.angle = Number(toDeg(angleRad).toFixed(this.round))
         //console.log(this.angle)
         this.name = eval(`${this.id}.evalCommandGetLabels('CircularSector((${this.point2.x},${this.point2.y}),(${this.point1.x},${this.point1.y}),(${this.point3.x},${this.point3.y}))')`)
+    }
+    getValue(){
+        var dist21 = getDistanceBetweenPoints(this.point2,this.point1)
+        var dist23 = getDistanceBetweenPoints(this.point2,this.point3)
+        var dist13 = getDistanceBetweenPoints(this.point1,this.point3)
+        var value = Math.acos((dist21**2+dist23**2-dist13**2)/(2*dist21*dist23))
+        var valueDeg = toDeg(value)
+        return valueDeg
     }
 }

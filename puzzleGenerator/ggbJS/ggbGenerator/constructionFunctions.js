@@ -3,6 +3,7 @@ import {breakpoint} from '../../../main/style.js'
 import {delay,generateRandomNumberWithStep} from '../../../main/helper.js'
 import {Point,Segment,Line,Angle} from '../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
 import {Triangle,Pgramm,Polygon,Rectangle} from '../../../puzzleGenerator/ggbJS/ggbGenerator/shapes.js'
+import {toRad} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/objectFunctions.js'
 
 export async function startPuzzleConstructionMode(templateFile,toolbarString){
     /*inject geogebra applet with algebra window*/
@@ -15,7 +16,7 @@ export function getIntersection(object1,object2,id=appID){
     var intersectionPoint = eval(`${id}.evalCommandGetLabels('Intersect(${object1.name},${object2.name})')`)
     eval(`${id}.evalCommand('SetVisibleInView(${intersectionPoint},1,false)')`)
     var pointLabel = eval(`${id}.getValueString('${intersectionPoint}')`)
-    var name = 'Intersection'+object1.name+object2.name
+    var name = 'Int'+object1.name+object2.name
     var point = extractPointFromLabel(pointLabel,name)
     return point
 }
@@ -33,6 +34,14 @@ export function getDistance(obj1,obj2,id=appID){
     return eval(`${id}.getValue(${temp})`)
 }
 
+export function getDistanceBetweenPoints(point1,point2){
+    var deltaX = point1.x-point2.x
+    var deltaY = point1.y-point2.y            
+    var distance = Math.sqrt((deltaX)**2+(deltaY)**2)
+    return distance
+}
+
+
 export function createMirrorPointOnLine(point1,point2){
     /*mirror point2 to point1 on line*/
     var distX = point2.x - point1.x
@@ -41,6 +50,12 @@ export function createMirrorPointOnLine(point1,point2){
     var yNew = point1.y-distY
     var newPoint = new Point(xNew,yNew,point2.name+'Mirror')
     return newPoint
+}
+
+export function createPointOnLine(line,startPoint,distance){
+    var newX = startPoint.x + distance * Math.cos(toRad(line.angle))
+    var newY = startPoint.y + distance * Math.sin(toRad(line.angle))
+    return new Point(newX,newY)
 }
 
 export function createTwoRandomPointsOnLine(m,c,min=-5,max=5,step=1){
@@ -101,4 +116,27 @@ export function createRandomPolyFunctionString(degree, min, max){
     }
     var simpleFunctionString = math.simplify(functionString)
     return simpleFunctionString.toString()
+}
+
+export function createRandomLinearFunctionString(min,max,origin=false){
+    var functionString=''
+    var m = math.randomInt(min,max)
+    if(m==0) m=m+1
+    var c = 0
+    if(origin==false){
+        c = math.randomInt(min,max) 
+    }
+    var functionString = `${m}*x+${c}`
+    return functionString
+}
+
+export function createParallelLine(line,distance,name){
+    /*create a parallel line with distance --> (-) left side, (+) right side*/
+    var segA = new Segment(line.start,distance,line.angle+90)
+    segA.draw()
+    segA.end.draw()
+    segA.end.setVisible(false)
+    segA.setVisible(false)
+    var newLine = new Line(segA.end,line.angle)
+    return newLine
 }

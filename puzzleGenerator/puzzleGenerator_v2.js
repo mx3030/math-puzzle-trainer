@@ -58,10 +58,12 @@ $('#manage-templates-button').on('click',function(){
 async function createGGBJSFilesDropdownMenu(puzzles){
     var fileContainer = $('#js-files')
     for(var path in puzzles){
+        var pathSplit = path.split('/')
+        var pathEnd = pathSplit.pop()
         var dropdownElement = $('<option></option>',{
             'value':path,
             'id':path,
-            'text':path
+            'text':pathEnd
         })
         fileContainer.append(dropdownElement) 
     }

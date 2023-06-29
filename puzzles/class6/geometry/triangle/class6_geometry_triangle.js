@@ -1,14 +1,15 @@
 import {setCoordSystem} from '../../../../puzzleGenerator/ggbJS/ggbDisplay.js'
 import {Point,Segment,Angle,importantPoints,resetImportantPoints} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/basis.js'
 import {Triangle,Pgramm,Polygon,Rectangle} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/shapes.js'
-import {getDistance,setColor} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
-import {ggbSetBase64,template} from '../../../../main/parameters.js'
+import {getDistance,setColor,startPuzzleConstructionMode} from '../../../../puzzleGenerator/ggbJS/ggbGenerator/constructionFunctions.js'
+import {ggbSetBase64,template,toolbar} from '../../../../main/parameters.js'
 
 export async function class6_easy_geometry_triangle(){
     /*initalize puzzle*/
     resetImportantPoints()
     await ggbSetBase64(template.geo64);
-
+    //await startPuzzleConstructionMode(template.geo,toolbar.simple)
+    
     /*create random problem*/
     var pointA = new Point(math.randomInt(1,20),math.randomInt(1,20),'A')
     var pointB = new Point(math.randomInt(10,1),math.randomInt(6,15),'B')
@@ -19,23 +20,21 @@ export async function class6_easy_geometry_triangle(){
     t1.drawPoints(false)
     setColor(t1.seg3,'purple')
     var sol = Number(getDistance(t1.seg3,t1.getOppositePoint(t1.seg3)).toFixed(1))
-
+    
     /*init layout and ruler*/
     var center = await setCoordSystem(importantPoints)
     app.setCoords('G',center[0],center[1])
     app.setGridVisible(false)
     app.setOnTheFlyPointCreationActive(false)
-
-    /*TODO: calculate scope sol*/
-    //var sol = getDistance 
-
+ 
     /*create data for upload*/
     var puzzleData = {
         schoolClass : ['class6'],
         topics : ['geometry','triangle'],
         difficulty : ['easy'],
         layout : 'geogebra',
-        extras : 'ruler',
+        ruler : true,
+        toolbar : toolbar.simple,
         form : 'puzzle',
         question : app.getBase64(),
         questionText : "Bestimme die Höhe $$h$$ des Dreiecks.",
