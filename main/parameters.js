@@ -22,6 +22,7 @@ export var template = {
     geo:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/geo.ggb',
     geo64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/base64/geo.base64',
     clean:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/clean.ggb',
+    github:'../../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/clean.ggb',
     cleanWithInput:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/cleanWithInput.ggb',
     clean64:'../puzzleGenerator/ggbJS/ggbGenerator/templates/base64/clean.base64', 
     cleanFreeAxes:'../puzzleGenerator/ggbJS/ggbGenerator/templates/ggb/cleanFreeAxes.ggb',
