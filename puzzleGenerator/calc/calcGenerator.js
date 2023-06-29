@@ -1,4 +1,4 @@
-import {roundToTens} from '../../../main/helper.js'
+import {roundToTens} from '../../main/helper.js'
 
 /*math js toTex and toString handler */
 export const myLatexHandler = {
