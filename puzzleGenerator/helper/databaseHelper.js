@@ -18,3 +18,7 @@ export async function deletePuzzles(){
 export async function resetDatabase(){
     remove(ref(db))
 }
+
+export async function deleteRooms(){
+    remove(ref(db,'games'))
+}

@@ -7,7 +7,7 @@ import {displayLayoutGeogebra} from './ggbJS/ggbDisplay.js'
 import {uploadSingleGGBJSPuzzle,uploadGGBJSFile,uploadGGBJSFunction,uploadGGBJSAll} from './ggbJS/ggbUpload.js'
 import {generatePuzzleData, uploadCalcFile,uploadCalcArray,uploadCalcQuestion,uploadCalcAll} from './calc/calcUpload.js'
 import {getGithubFiles} from './helper/githubHelper.js'
-import {deleteTemps,deletePuzzles,resetDatabase} from './helper/databaseHelper.js'
+import {deleteTemps,deletePuzzles,resetDatabase, deleteRooms} from './helper/databaseHelper.js'
 
 export var puzzleImports = {}
 export var ggbjsPuzzles = {}
@@ -139,7 +139,7 @@ $('#ggbjs-upload-all-button').click(async function(){
     var numberOfPuzzles = $('#ggbjs-upload-all-num').val()
     $('#ggbjs-upload-all-spinner').removeClass('d-none')
     $('#ggbjs-upload-all-text').addClass('d-none')
-    await uploadGGBJSAll(numberOfPuzzles,true)
+    await uploadGGBJSAll(numberOfPuzzles,false)
     $('#ggbjs-upload-all-spinner').addClass('d-none')
     $('#ggbjs-upload-all-text').removeClass('d-none')
 })
@@ -284,4 +284,8 @@ $('#delete-temps-button').click(async function(){
 
 $('#reset-db-button').click(async function(){
     await resetDatabase()
+})
+
+$('#delete-rooms-button').click(async function(){
+    await deleteRooms()
 })
